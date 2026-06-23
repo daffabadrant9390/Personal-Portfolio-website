@@ -1,8 +1,22 @@
 "use client";
 
-import { Search } from "lucide-react";
+import { Filter, Search } from "lucide-react";
+import {
+  SelectRoot,
+  SelectTrigger,
+  SelectValue,
+  SelectPopup,
+  SelectList,
+  SelectItem,
+} from "@/components/ui/select";
 
 export type SortOrder = "none" | "asc" | "desc";
+
+const sortLabels: Record<SortOrder, string> = {
+  none: "Sort: Default",
+  asc: "Title: A → Z",
+  desc: "Title: Z → A",
+};
 
 interface ProjectFiltersProps {
   search: string;
@@ -40,18 +54,25 @@ export function ProjectFilters({
           />
         </div>
 
-        <select
+        <SelectRoot
+          items={sortLabels}
           value={sortOrder}
-          onChange={(e) => onSortChange(e.target.value as SortOrder)}
-          aria-label="Sort projects by title"
-          className="rounded-xl border border-border bg-background px-4 py-2.5 text-sm
-                     text-foreground outline-none transition-all sm:w-48
-                     focus:border-blue-500 focus:ring-2 focus:ring-blue-500/15"
+          onValueChange={(val) => val && onSortChange(val as SortOrder)}
         >
-          <option value="none">Sort: Default</option>
-          <option value="asc">Title: A → Z</option>
-          <option value="desc">Title: Z → A</option>
-        </select>
+          <SelectTrigger aria-label="Sort projects by title">
+            <span className="flex items-center gap-2">
+              <Filter size={15} className="text-muted-foreground" />
+              <SelectValue placeholder={sortLabels.none} />
+            </span>
+          </SelectTrigger>
+          <SelectPopup>
+            <SelectList>
+              <SelectItem value="none">{sortLabels.none}</SelectItem>
+              <SelectItem value="asc">{sortLabels.asc}</SelectItem>
+              <SelectItem value="desc">{sortLabels.desc}</SelectItem>
+            </SelectList>
+          </SelectPopup>
+        </SelectRoot>
       </div>
 
       <div className="flex flex-wrap gap-2">

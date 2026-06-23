@@ -13,8 +13,21 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project, onViewDetails }: ProjectCardProps) {
   return (
-    <div className="group flex flex-col rounded-2xl border border-border bg-card overflow-hidden
-                    hover:border-blue-200 dark:hover:border-blue-900/40 hover:shadow-sm transition-all">
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={() => onViewDetails(project)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onViewDetails(project);
+        }
+      }}
+      aria-label={`See details for ${project.title}`}
+      className="group flex cursor-pointer flex-col rounded-2xl border border-border bg-card overflow-hidden
+                 hover:border-blue-200 dark:hover:border-blue-900/40 hover:shadow-sm transition-all
+                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40"
+    >
       <div className="relative">
         <ProjectGallery
           images={project.images?.length ? project.images : [project.image]}
@@ -44,10 +57,10 @@ export function ProjectCard({ project, onViewDetails }: ProjectCardProps) {
         <div className="mt-auto flex items-center gap-2 pt-3 border-t border-border">
           <button
             type="button"
-            onClick={() => onViewDetails(project)}
+            onClick={(e) => { e.stopPropagation(); onViewDetails(project); }}
             aria-label={`See details for ${project.title}`}
             title="See details"
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-border
+            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border border-border
                        text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400
                        hover:border-blue-300 dark:hover:border-blue-700 transition-colors"
           >
@@ -59,9 +72,10 @@ export function ProjectCard({ project, onViewDetails }: ProjectCardProps) {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
               aria-label={`Open GitHub repository for ${project.title}`}
               title="Open GitHub"
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-border
+              className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border border-border
                          text-muted-foreground hover:text-foreground
                          hover:border-slate-300 dark:hover:border-slate-600 transition-colors"
             >
@@ -74,9 +88,10 @@ export function ProjectCard({ project, onViewDetails }: ProjectCardProps) {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
               aria-label={`Open live demo for ${project.title}`}
               title="Open live demo"
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-border
+              className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border border-border
                          text-muted-foreground hover:text-emerald-600 dark:hover:text-emerald-400
                          hover:border-emerald-300 dark:hover:border-emerald-700 transition-colors"
             >

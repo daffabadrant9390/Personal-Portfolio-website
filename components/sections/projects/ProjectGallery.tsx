@@ -40,7 +40,7 @@ export function ProjectGallery({ images, alt, heightClass = "h-44" }: ProjectGal
             onClick={(e) => { e.stopPropagation(); go(-1); }}
             aria-label="Previous image"
             className="absolute left-2 top-1/2 z-10 -translate-y-1/2
-                       flex h-7 w-7 items-center justify-center rounded-full
+                       flex h-7 w-7 cursor-pointer items-center justify-center rounded-full
                        bg-black/40 text-white transition-opacity hover:bg-black/60
                        opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
           >
@@ -51,7 +51,7 @@ export function ProjectGallery({ images, alt, heightClass = "h-44" }: ProjectGal
             onClick={(e) => { e.stopPropagation(); go(1); }}
             aria-label="Next image"
             className="absolute right-2 top-1/2 z-10 -translate-y-1/2
-                       flex h-7 w-7 items-center justify-center rounded-full
+                       flex h-7 w-7 cursor-pointer items-center justify-center rounded-full
                        bg-black/40 text-white transition-opacity hover:bg-black/60
                        opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
           >
@@ -65,7 +65,7 @@ export function ProjectGallery({ images, alt, heightClass = "h-44" }: ProjectGal
                 type="button"
                 onClick={(e) => { e.stopPropagation(); setIndex(i); }}
                 aria-label={`Go to image ${i + 1}`}
-                className={`h-1.5 rounded-full transition-all ${
+                className={`h-1.5 cursor-pointer rounded-full transition-all ${
                   i === index ? "w-4 bg-white" : "w-1.5 bg-white/50"
                 }`}
               />

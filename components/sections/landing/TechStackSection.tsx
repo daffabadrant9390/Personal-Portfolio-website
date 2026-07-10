@@ -1,8 +1,6 @@
-"use client";
-
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Container } from "@/components/shared/Container";
-import { usePortfolioStore } from "@/lib/store/usePortfolioStore";
+import { techCategories } from "@/lib/data/portfolio";
 
 const DEVICON_BASE = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons";
 
@@ -56,8 +54,6 @@ function TechIcon({ name, icon }: { name: string; icon: string }) {
 }
 
 export function TechStackSection() {
-  const { techCategories } = usePortfolioStore();
-
   return (
     <section className="relative py-20 md:py-32 bg-background">
       <div className="absolute top-0 inset-x-0 h-px bg-linear-to-r from-transparent via-border to-transparent" />

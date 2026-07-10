@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 import {
   Mail, MapPin, Send, ExternalLink, CheckCircle, AlertCircle,
 } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa6";
+import { WhatsappIcon } from "@/components/shared/BrandIcons";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Container } from "@/components/shared/Container";
 import { ErrorFeedback } from "@/components/shared/ErrorFeedback";
@@ -17,7 +17,7 @@ import { useContactStore } from "@/lib/store/useContactStore";
    CONSTANTS — update these with your real details
 ───────────────────────────────────────────────────────── */
 const MY_EMAIL     = "daffabadrant@gmail.com";
-const MY_WA_NUMBER = "6281234567890"; // Replace with your real WA number (country code, no +)
+const MY_WA_NUMBER = "6281271363702"; // country code, no +
 
 const GOOGLE_MAPS_URL = "https://www.google.com/maps/place/Jakarta,+Indonesia";
 
@@ -202,7 +202,7 @@ export default function ContactPage() {
                 <div className="h-10 w-10 rounded-xl flex items-center justify-center
                                 bg-emerald-100 dark:bg-emerald-950/50
                                 text-emerald-600 dark:text-emerald-400 shrink-0">
-                  <FaWhatsapp size={18} />
+                  <WhatsappIcon size={18} />
                 </div>
                 <div className="flex-1">
                   <p className="text-[10px] uppercase tracking-widest font-semibold
@@ -419,7 +419,7 @@ export default function ContactPage() {
                                  hover:border-emerald-400 dark:hover:border-emerald-600/50
                                  transition-all"
                     >
-                      <FaWhatsapp size={15} />
+                      <WhatsappIcon size={15} />
                       WhatsApp Instead
                     </button>
 

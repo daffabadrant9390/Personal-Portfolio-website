@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -26,11 +27,16 @@ export function ProjectGallery({ images, alt, heightClass = "h-44" }: ProjectGal
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
-          role="img"
-          aria-label={alt}
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url('${images[index]}')` }}
-        />
+          className="absolute inset-0"
+        >
+          <Image
+            src={images[index]}
+            alt={alt}
+            fill
+            sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
+            className="object-cover"
+          />
+        </motion.div>
       </AnimatePresence>
 
       {hasMultiple && (

@@ -123,7 +123,7 @@ export function MobileMenu() {
                 Let&apos;s Talk
               </Link>
               <p className="mt-4 text-center text-xs text-slate-400 dark:text-slate-600">
-                hello@daffabadranthoriq.com
+                daffabadrant@gmail.com
               </p>
             </div>
           </motion.div>

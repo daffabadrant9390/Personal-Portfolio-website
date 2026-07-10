@@ -24,13 +24,18 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+const SITE_URL = "https://daffabadranthoriq.com";
+const SITE_TITLE = "M. Daffa Badranthoriq — Full Stack Engineer";
+const SITE_DESCRIPTION =
+  "Full Stack Engineer specializing in scalable web infrastructure, distributed systems, and high-performance applications.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "M. Daffa Badranthoriq — Full Stack Engineer",
+    default: SITE_TITLE,
     template: "%s | M. Daffa Badranthoriq",
   },
-  description:
-    "Full Stack Engineer specializing in scalable web infrastructure, distributed systems, and high-performance applications.",
+  description: SITE_DESCRIPTION,
   keywords: [
     "Full Stack Engineer",
     "Software Engineer",
@@ -39,14 +44,63 @@ export const metadata: Metadata = {
     "React",
     "Node.js",
   ],
-  authors: [{ name: "M. Daffa Badranthoriq" }],
+  authors: [{ name: "M. Daffa Badranthoriq", url: SITE_URL }],
+  creator: "M. Daffa Badranthoriq",
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+    },
+  },
   openGraph: {
     type: "website",
-    title: "M. Daffa Badranthoriq — Full Stack Engineer",
-    description:
-      "Full Stack Engineer specializing in scalable web infrastructure.",
+    url: SITE_URL,
+    siteName: SITE_TITLE,
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
     locale: "en_US",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: SITE_TITLE }],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: ["/opengraph-image"],
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-icon.png" }],
+  },
+};
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "M. Daffa Badranthoriq",
+  url: SITE_URL,
+  jobTitle: "Full Stack Engineer",
+  description: SITE_DESCRIPTION,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Jakarta",
+    addressCountry: "ID",
+  },
+  sameAs: [
+    "https://github.com/daffabadrant9390",
+    "https://www.linkedin.com/in/m-daffa-badran-thoriq/",
+    "https://www.instagram.com/daffabadrant/",
+  ],
 };
 
 export default function RootLayout({
@@ -59,6 +113,11 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen flex flex-col" suppressHydrationWarning>
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
         <ThemeProvider>
           <Navbar />
           <MobileMenu />

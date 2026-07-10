@@ -1,16 +1,10 @@
-"use client";
-
 import Link from "next/link";
 import { ArrowRight, MapPin, Briefcase } from "lucide-react";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Container } from "@/components/shared/Container";
-import { usePortfolioStore } from "@/lib/store/usePortfolioStore";
-import { useBreakpoint } from "@/lib/hooks/useBreakpoint";
+import { experiences } from "@/lib/data/portfolio";
 
 export function AboutPreviewSection() {
-  const { experiences } = usePortfolioStore();
-  const { isDesktop } = useBreakpoint();
-
   const visible = experiences.slice(0, 2);
   const faded   = experiences[2];
 
@@ -81,19 +75,18 @@ export function AboutPreviewSection() {
               </div>
             </AnimatedSection>
 
-            {!!isDesktop && (
-              <AnimatedSection delay={0.26}>
-                <Link
-                  href="/about"
-                  className="group mt-8 inline-flex items-center gap-2 text-sm font-semibold
-                            text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300
-                            transition-colors"
-                >
-                  See Full Profile
-                  <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-                </Link>
-              </AnimatedSection>
-            )}
+            {/* Desktop-only (lg+) — CSS gate avoids a client-side breakpoint hook. */}
+            <AnimatedSection delay={0.26} className="hidden lg:block">
+              <Link
+                href="/about"
+                className="group mt-8 inline-flex items-center gap-2 text-sm font-semibold
+                          text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300
+                          transition-colors"
+              >
+                See Full Profile
+                <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+              </Link>
+            </AnimatedSection>
           </div>
 
           {/* ── Right: Experience highlights ── */}

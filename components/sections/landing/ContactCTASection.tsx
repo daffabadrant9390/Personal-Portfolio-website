@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
@@ -63,7 +61,7 @@ export function ContactCTASection() {
               />
             </Link>
             <a
-              href="mailto:hello@daffabadranthoriq.com"
+              href="mailto:daffabadrant@gmail.com"
               className="inline-flex items-center gap-2 rounded-xl
                          px-5 py-2.5 sm:px-8 sm:py-3.5
                          text-xs sm:text-sm font-medium transition-all

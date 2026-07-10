@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cp \"/private/tmp/claude-501/-Users-mdaffabadranthoriq-Documents-coding-personal-website-Personal-Portfolio-website/d19838e9-9939-46d1-9b9a-57855f39ce84/scratchpad/logo/logo-light.png\" \"/Users/mdaffabadranthoriq/Documents/coding/personal-website/Personal-Portfolio-website/public/logo-light.png\")",
+      "Bash(cp \"/private/tmp/claude-501/-Users-mdaffabadranthoriq-Documents-coding-personal-website-Personal-Portfolio-website/d19838e9-9939-46d1-9b9a-57855f39ce84/scratchpad/logo/logo-dark.png\" \"/Users/mdaffabadranthoriq/Documents/coding/personal-website/Personal-Portfolio-website/public/logo-dark.png\")",
+      "Bash(node -e ' *)",
+      "Bash(curl -sf http://localhost:3000)",
+      "Bash(npx --no-install playwright --version)",
+      "Bash(node -e \"require.resolve\\('playwright'\\)\")",
+      "Bash(npm install *)",
+      "Bash(node shot.js)",
+      "Bash(git status *)",
+      "Bash(npm run *)"
+    ]
+  }
+}

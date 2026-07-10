@@ -1,7 +1,7 @@
 "use client";
 
 import { Eye, ExternalLink } from "lucide-react";
-import { FaGithub } from "react-icons/fa6";
+import { GithubIcon } from "@/components/shared/BrandIcons";
 import { ProjectGallery } from "@/components/sections/projects/ProjectGallery";
 import { TechBadge } from "@/components/sections/projects/TechBadge";
 import type { Project } from "@/lib/types";
@@ -79,7 +79,7 @@ export function ProjectCard({ project, onViewDetails }: ProjectCardProps) {
                          text-muted-foreground hover:text-foreground
                          hover:border-slate-300 dark:hover:border-slate-600 transition-colors"
             >
-              <FaGithub size={15} />
+              <GithubIcon size={15} />
             </a>
           )}
 

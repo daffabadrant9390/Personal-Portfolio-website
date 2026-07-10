@@ -1,12 +1,10 @@
-"use client";
-
+import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink, ArrowRight } from "lucide-react";
-import { FaGithub } from "react-icons/fa6";
+import { GithubIcon } from "@/components/shared/BrandIcons";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Container } from "@/components/shared/Container";
-import { usePortfolioStore } from "@/lib/store/usePortfolioStore";
-import { useBreakpoint } from "@/lib/hooks/useBreakpoint";
+import { projects } from "@/lib/data/portfolio";
 import type { Project } from "@/lib/types";
 
 function ProjectCard({ project }: { project: Project }) {
@@ -18,9 +16,12 @@ function ProjectCard({ project }: { project: Project }) {
                     transition-all duration-300">
       {/* Thumbnail */}
       <div className="relative h-36 sm:h-40 overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-          style={{ backgroundImage: `url('${project.image}')` }}
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          sizes="(min-width: 768px) 300px, (min-width: 640px) 280px, 240px"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-linear-to-t from-card via-card/40 to-transparent" />
         {/* Link overlay */}
@@ -32,11 +33,11 @@ function ProjectCard({ project }: { project: Project }) {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`GitHub repository for ${project.title}`}
               className="flex h-8 w-8 items-center justify-center rounded-lg
                          bg-white/15 hover:bg-white/25 text-white transition-colors"
-              onClick={(e) => e.stopPropagation()}
             >
-              <FaGithub size={14} />
+              <GithubIcon size={14} />
             </a>
           )}
           {project.liveUrl && (
@@ -44,9 +45,9 @@ function ProjectCard({ project }: { project: Project }) {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`Live demo for ${project.title}`}
               className="flex h-8 w-8 items-center justify-center rounded-lg
                          bg-blue-700/80 hover:bg-blue-700 text-white transition-colors"
-              onClick={(e) => e.stopPropagation()}
             >
               <ExternalLink size={14} />
             </a>
@@ -106,8 +107,6 @@ function MarqueeRow({
 }
 
 export function FeaturedProjectsSection() {
-  const { projects } = usePortfolioStore();
-  const { isMobile } = useBreakpoint();
   const row1 = projects.slice(0, 3);
   const row2 = projects.slice(3, 6);
 
@@ -138,10 +137,13 @@ export function FeaturedProjectsSection() {
         </AnimatedSection>
       </Container>
 
-      {/* Full-bleed marquee rows — 1 row on mobile, 2 on desktop */}
+      {/* Full-bleed marquee rows — 1 row on mobile, 2 on desktop.
+          Second row is CSS-hidden below md so no breakpoint hook is needed. */}
       <div className="space-y-4">
         <MarqueeRow projects={row1} direction="left" />
-        {!isMobile && <MarqueeRow projects={row2} direction="right" />}
+        <div className="hidden md:block">
+          <MarqueeRow projects={row2} direction="right" />
+        </div>
       </div>
 
       {/* Edge fade masks */}

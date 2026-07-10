@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import { Mail } from "lucide-react";
-import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import { GithubIcon, LinkedinIcon, InstagramIcon } from "@/components/shared/BrandIcons";
 import { Container } from "@/components/shared/Container";
 
 const quickLinks = [
@@ -21,10 +21,10 @@ const legalLinks = [
 ];
 
 const socials = [
-  { Icon: FaGithub,   href: "https://github.com",                  label: "GitHub" },
-  { Icon: FaLinkedin, href: "https://linkedin.com",                label: "LinkedIn" },
-  { Icon: FaXTwitter, href: "https://x.com",                       label: "X (Twitter)" },
-  { Icon: Mail,       href: "mailto:hello@daffabadranthoriq.com",   label: "Email" },
+  { Icon: GithubIcon,    href: "https://github.com/daffabadrant9390",                  label: "GitHub" },
+  { Icon: LinkedinIcon,  href: "https://www.linkedin.com/in/m-daffa-badran-thoriq/",    label: "LinkedIn" },
+  { Icon: InstagramIcon, href: "https://www.instagram.com/daffabadrant/",               label: "Instagram" },
+  { Icon: Mail,          href: "mailto:daffabadrant@gmail.com",                         label: "Email" },
 ];
 
 export function Footer() {
@@ -49,7 +49,7 @@ export function Footer() {
                   alt="DAFFA logo"
                   width={110}
                   height={44}
-                  className="object-contain h-11 w-auto"
+                  className="object-contain h-11 w-auto md:h-14"
                 />
               ) : (
                 <span className="font-heading font-bold text-xl tracking-widest uppercase

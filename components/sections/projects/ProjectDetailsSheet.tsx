@@ -1,7 +1,7 @@
 "use client";
 
 import { ExternalLink } from "lucide-react";
-import { FaGithub } from "react-icons/fa6";
+import { GithubIcon } from "@/components/shared/BrandIcons";
 import { ResponsiveOverlay } from "@/components/shared/ResponsiveOverlay";
 import { ProjectGallery } from "@/components/sections/projects/ProjectGallery";
 import { TechBadge } from "@/components/sections/projects/TechBadge";
@@ -46,7 +46,7 @@ export function ProjectDetailsSheet({ project, onClose }: ProjectDetailsSheetPro
                            text-foreground hover:border-blue-300 dark:hover:border-blue-700
                            hover:bg-blue-50 dark:hover:bg-blue-950/20 transition-all"
               >
-                <FaGithub size={15} />
+                <GithubIcon size={15} />
                 View Code
               </a>
             )}

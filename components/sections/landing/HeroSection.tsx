@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Mail, Download } from "lucide-react";
-import { FaGithub, FaLinkedin } from "react-icons/fa6";
+import { GithubIcon, LinkedinIcon } from "@/components/shared/BrandIcons";
 import { useBreakpoint } from "@/lib/hooks/useBreakpoint";
 import { Container } from "@/components/shared/Container";
 
@@ -125,9 +125,9 @@ export function HeroSection() {
             <motion.div variants={item} className="mt-6 md:mt-8 flex items-center gap-3 md:gap-4">
               <div className="flex gap-1.5 md:gap-2">
                 {[
-                  { Icon: FaGithub,   href: "https://github.com",               label: "GitHub" },
-                  { Icon: FaLinkedin, href: "https://linkedin.com",             label: "LinkedIn" },
-                  { Icon: Mail,       href: "mailto:hello@daffabadranthoriq.com", label: "Email" },
+                  { Icon: GithubIcon,   href: "https://github.com/daffabadrant9390",               label: "GitHub" },
+                  { Icon: LinkedinIcon, href: "https://www.linkedin.com/in/m-daffa-badran-thoriq/", label: "LinkedIn" },
+                  { Icon: Mail,         href: "mailto:daffabadrant@gmail.com",                      label: "Email" },
                 ].map(({ Icon, href, label }) => (
                   <a
                     key={label}
@@ -148,7 +148,7 @@ export function HeroSection() {
               </div>
               <div className="h-px flex-1 max-w-10 bg-slate-200 dark:bg-white/10" />
               <span className="text-[10px] sm:text-xs text-slate-400 dark:text-slate-600 truncate">
-                hello@daffabadranthoriq.com
+                daffabadrant@gmail.com
               </span>
             </motion.div>
           </motion.div>

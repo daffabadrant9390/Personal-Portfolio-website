@@ -56,7 +56,7 @@ export function Navbar() {
               alt="DAFFA logo"
               width={100}
               height={40}
-              className="object-contain h-10 w-auto"
+              className="object-contain h-10 w-auto md:h-12"
               priority
             />
           ) : (

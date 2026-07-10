@@ -36,8 +36,9 @@ export function AnimatedSection({
         delay,
         ease: "easeOut",
       }}
-      /* GPU-composited properties only (opacity + transform) for smooth 60 fps */
-      style={{ willChange: "transform, opacity" }}
+      /* framer-motion toggles `will-change` only while animating and clears it
+         on completion — pinning it would promote a GPU layer per section
+         forever, costing memory without any benefit once the reveal is done. */
       className={className}
     >
       {children}

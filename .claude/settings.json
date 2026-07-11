@@ -10,7 +10,11 @@
       "Bash(npm install *)",
       "Bash(node shot.js)",
       "Bash(git status *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(python3 -c ' *)",
+      "Bash(pip3 install *)",
+      "Bash(python3 -m pip install --quiet Pillow)",
+      "Bash(echo \"exit: $?\")"
     ]
   }
 }

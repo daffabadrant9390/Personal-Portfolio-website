@@ -44,17 +44,17 @@ export function AboutHero() {
               {/* // About Me */}
             </motion.span>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.06, ease: "easeOut" }}
-              className="font-heading text-4xl font-bold leading-[1.1] tracking-tight
+            {/* Fades up via a plain CSS animation (not framer-motion) — this
+                is the LCP candidate, and a JS-driven animation would delay
+                LCP until framer-motion hydrates and runs. */}
+            <h1
+              className="animate-fade-up-about font-heading text-4xl font-bold leading-[1.1] tracking-tight
                          text-foreground sm:text-5xl md:text-[3.5rem]"
             >
               The engineer
               <br />
               <span className="gradient-text">behind the stack.</span>
-            </motion.h1>
+            </h1>
 
             <motion.p
               initial={{ opacity: 0, y: 12 }}

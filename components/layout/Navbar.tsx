@@ -48,23 +48,27 @@ export function Navbar() {
     >
       <Container className="flex h-16 items-center justify-between">
 
-        {/* Logo */}
+        {/* Logo — both variants render immediately and are swapped with a
+            `dark:` CSS class instead of a mount-gated JS src swap. Avoids
+            the text→image flash (and the layout shift it caused) that came
+            from waiting for `mounted` before rendering the real logo. */}
         <Link href="/" className="flex-shrink-0 hover:opacity-80 transition-opacity">
-          {mounted ? (
-            <Image
-              src={theme === "dark" ? "/logo-dark.png" : "/logo-light.png"}
-              alt="DAFFA logo"
-              width={100}
-              height={40}
-              className="object-contain h-10 w-auto md:h-12"
-              priority
-            />
-          ) : (
-            <span className="font-heading font-bold text-lg tracking-widest uppercase
-                             text-slate-900 dark:text-white">
-              DAFFA
-            </span>
-          )}
+          <Image
+            src="/logo-light.png"
+            alt="DAFFA logo"
+            width={100}
+            height={40}
+            className="block dark:hidden object-contain h-10 w-auto md:h-12"
+            priority
+          />
+          <Image
+            src="/logo-dark.png"
+            alt="DAFFA logo"
+            width={100}
+            height={40}
+            className="hidden dark:block object-contain h-10 w-auto md:h-12"
+            priority
+          />
         </Link>
 
         {/* Desktop navigation */}

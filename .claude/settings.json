@@ -14,7 +14,10 @@
       "Bash(python3 -c ' *)",
       "Bash(pip3 install *)",
       "Bash(python3 -m pip install --quiet Pillow)",
-      "Bash(echo \"exit: $?\")"
+      "Bash(echo \"exit: $?\")",
+      "Bash(npx next *)",
+      "Bash(break)",
+      "Read(//private/tmp/**)"
     ]
   }
 }

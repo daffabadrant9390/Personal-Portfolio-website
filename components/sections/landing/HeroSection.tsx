@@ -5,7 +5,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Mail, Download } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/shared/BrandIcons";
-import { useBreakpoint } from "@/lib/hooks/useBreakpoint";
 import { Container } from "@/components/shared/Container";
 
 const container = {
@@ -18,12 +17,10 @@ const item = {
 };
 
 export function HeroSection() {
-  const { isMobile } = useBreakpoint();
-
   return (
     <section className="relative min-h-[100svh] flex items-center overflow-hidden bg-background">
       <Container className="pt-20 pb-12 md:pt-24 md:pb-16">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1fr_380px]">
+        <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-[1fr_240px] lg:grid-cols-[1fr_380px]">
 
           {/* ── Left: text content ── */}
           <motion.div
@@ -45,10 +42,12 @@ export function HeroSection() {
               </span>
             </motion.div>
 
-            {/* Headline — smaller on mobile */}
-            <motion.h1
-              variants={item}
-              className="font-heading font-bold leading-[1.1] tracking-tight
+            {/* Headline — smaller on mobile. Fades up via a plain CSS
+                animation (not framer-motion) since it's the LCP candidate;
+                a JS-driven animation would delay LCP until framer-motion
+                hydrates and runs. */}
+            <h1
+              className="animate-fade-up-hero font-heading font-bold leading-[1.1] tracking-tight
                          text-slate-900 dark:text-white
                          text-[2rem] sm:text-4xl md:text-5xl lg:text-[3.5rem]"
             >
@@ -59,7 +58,7 @@ export function HeroSection() {
               scalable web
               <br />
               infrastructure
-            </motion.h1>
+            </h1>
 
             {/* Bio */}
             <motion.p
@@ -153,16 +152,20 @@ export function HeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* ── Right: Profile card (desktop only) ── */}
-          {!isMobile && (
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.35, ease: "easeOut" }}
-              className="relative flex justify-center lg:justify-end"
-              style={{ willChange: "transform, opacity" }}
-            >
-              <div className="relative h-[400px] w-[280px]">
+          {/* ── Right: Profile card ──
+              Hidden via CSS (not a JS isMobile check) below `md` so the
+              image never renders/preloads on small viewports at all — no
+              hydration flash, no wasted fetch. Side-by-side from `md` up,
+              matching the grid's column breakpoints (narrower card at
+              `md`/tablet, full size at `lg`/desktop). */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.35, ease: "easeOut" }}
+            className="hidden md:flex relative justify-center lg:justify-end"
+            style={{ willChange: "transform, opacity" }}
+          >
+              <div className="relative h-[320px] w-[220px] lg:h-[400px] lg:w-[280px]">
 
                 {/* Main card */}
                 <div className="relative h-full w-full rounded-2xl overflow-hidden
@@ -175,8 +178,8 @@ export function HeroSection() {
                     src="/profile-img-2.webp"
                     alt="M. Daffa Badranthoriq"
                     fill
+                    sizes="(max-width: 1023px) 220px, 280px"
                     className="object-cover object-top"
-                    priority
                   />
 
                   <div className="absolute bottom-0 left-0 right-0 p-5
@@ -200,7 +203,7 @@ export function HeroSection() {
                   initial={{ opacity: 0, x: -12 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.6, duration: 0.35, ease: "easeOut" }}
-                  className="absolute -left-12 top-16 rounded-xl px-4 py-3
+                  className="absolute -left-6 top-14 lg:-left-12 lg:top-16 rounded-xl px-4 py-3
                              border border-slate-200 dark:border-white/8
                              bg-background shadow-md dark:shadow-none"
                   style={{ willChange: "transform, opacity" }}
@@ -214,7 +217,7 @@ export function HeroSection() {
                   initial={{ opacity: 0, x: 12 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.72, duration: 0.35, ease: "easeOut" }}
-                  className="absolute -right-10 bottom-28 rounded-xl px-4 py-3
+                  className="absolute -right-4 bottom-20 lg:-right-10 lg:bottom-28 rounded-xl px-4 py-3
                              border border-slate-200 dark:border-white/8
                              bg-background shadow-md dark:shadow-none"
                   style={{ willChange: "transform, opacity" }}
@@ -228,7 +231,7 @@ export function HeroSection() {
                   initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.82, duration: 0.3, ease: "easeOut" }}
-                  className="absolute -right-8 top-8 flex items-center gap-2 rounded-full px-3 py-1.5
+                  className="absolute -right-3 top-6 lg:-right-8 lg:top-8 flex items-center gap-2 rounded-full px-3 py-1.5
                              border border-emerald-300 dark:border-emerald-700/30
                              bg-emerald-50 dark:bg-emerald-950/50"
                   style={{ willChange: "transform, opacity" }}
@@ -239,8 +242,7 @@ export function HeroSection() {
                   </span>
                 </motion.div>
               </div>
-            </motion.div>
-          )}
+          </motion.div>
         </div>
 
         {/* Scroll indicator */}

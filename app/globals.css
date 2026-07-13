@@ -174,6 +174,15 @@
   to   { transform: translateX(0); }
 }
 
+/* Fade-up entrance for hero headlines (the LCP candidate on those pages).
+   Pure CSS so it runs as soon as styles are parsed — it doesn't wait on
+   JS hydration the way a framer-motion equivalent would, which otherwise
+   delays LCP by however long the page takes to become interactive. */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 /* ──────────────────────────────────────────────────────────
    Custom utilities
 ────────────────────────────────────────────────────────── */
@@ -227,4 +236,19 @@
 
   /* GPU hint for animated elements */
   .gpu { will-change: transform, opacity; transform: translateZ(0); }
+
+  /* Hero headline fade-up. `both` keeps opacity:0 pre-animation and holds
+     the end state after. Timings mirror the previous framer-motion values. */
+  .animate-fade-up-hero {
+    animation: fade-up 0.4s ease-out 0.23s both;
+  }
+  .animate-fade-up-about {
+    animation: fade-up 0.45s ease-out 0.06s both;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-up-hero,
+    .animate-fade-up-about {
+      animation: none;
+    }
+  }
 }

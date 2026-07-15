@@ -30,8 +30,7 @@ export function ProjectCard({ project, onViewDetails }: ProjectCardProps) {
     >
       <div className="relative">
         <ProjectGallery
-          images={project.images?.length ? project.images : [project.image]}
-          alt={project.title}
+          images={project.images?.length ? project.images : [{ src: project.image, alt: project.title }]}
           heightClass="h-44 sm:h-48"
         />
         <span className="absolute top-3 left-3 z-10 rounded-full bg-black/50 backdrop-blur-sm

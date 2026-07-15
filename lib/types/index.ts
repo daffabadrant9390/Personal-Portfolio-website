@@ -1,11 +1,17 @@
+export interface ProjectImage {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
 export interface Project {
   id: string;
   title: string;
   category: string;
   description: string;
   image: string;
-  /** Gallery for the project card carousel. Falls back to [image] when omitted. */
-  images?: string[];
+  /** Gallery for the project card carousel. Falls back to [{ src: image, alt: title }] when omitted. */
+  images?: ProjectImage[];
   tags: string[];
   liveUrl?: string;
   githubUrl?: string;

@@ -4,17 +4,18 @@ import { useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import type { ProjectImage } from "@/lib/types";
 
 interface ProjectGalleryProps {
-  images: string[];
-  alt: string;
+  images: ProjectImage[];
   /** Controls the gallery's height — pass a Tailwind height class. */
   heightClass?: string;
 }
 
-export function ProjectGallery({ images, alt, heightClass = "h-44" }: ProjectGalleryProps) {
+export function ProjectGallery({ images, heightClass = "h-44" }: ProjectGalleryProps) {
   const [index, setIndex] = useState(0);
   const hasMultiple = images.length > 1;
+  const current = images[index];
 
   const go = (dir: 1 | -1) => setIndex((i) => (i + dir + images.length) % images.length);
 
@@ -30,14 +31,21 @@ export function ProjectGallery({ images, alt, heightClass = "h-44" }: ProjectGal
           className="absolute inset-0"
         >
           <Image
-            src={images[index]}
-            alt={alt}
+            src={current.src}
+            alt={current.alt}
             fill
             sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
             className="object-cover"
           />
         </motion.div>
       </AnimatePresence>
+
+      {current.caption && (
+        <div className={`absolute bottom-0 inset-x-0 z-10 bg-gradient-to-t from-black/70 to-transparent
+                       px-3 pt-6 text-[11px] font-medium text-white/90 ${hasMultiple ? "pb-5" : "pb-2"}`}>
+          {current.caption}
+        </div>
+      )}
 
       {hasMultiple && (
         <>

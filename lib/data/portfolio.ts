@@ -7,19 +7,50 @@ import type { Project, Experience, TechCategory } from "@/lib/types";
 export const projects: Project[] = [
   {
     id: "1",
-    title: "Fintech Core API",
-    category: "Backend",
+    title: "Tiket.com — Accommodation Platform",
+    category: "Frontend",
     description:
-      "High-performance payment processing system built for enterprise scale with 99.9% uptime SLA.",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80",
+      "Rebuilt hotel & homes accommodation pages and post-purchase flows for one of Indonesia's largest OTAs, cutting LCP/CLS under 2s and lifting page performance & SEO scores by 80% while sustaining 90%+ unit test coverage in production.",
+    image: "/portfolio-images/tiket/tiket-1.jpg",
     images: [
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80&sat=-100",
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=80",
+      {
+        src: "/portfolio-images/tiket/tiket-1.jpg",
+        alt: "Tiket.com Home Page for all products and services",
+        caption: "Home Page for Hotels, Homes, Flights, and other services",
+      },
+      {
+        src: "/portfolio-images/tiket/tiket-2.jpg",
+        alt: "Tiket.com Accommodation Search Page with List of Hotels and Homes",
+        caption: "Tiket.com Accommodation Search Page with List of Hotels and Homes",
+      },
+      {
+        src: "/portfolio-images/tiket/tiket-3.jpg",
+        alt: "Tiket.com Accommodation Hotel Detail Page with all Hotel Information and Booking Options",
+        caption: "Accommodation Hotel Detail Page with all Hotel Information and Booking Options",
+      },
+      {
+        src: "/portfolio-images/tiket/tiket-4.jpg",
+        alt: "Tiket.com Accommodation Map Nearby POI for Hotels and Homes",
+        caption: "Accommodation Map Nearby POI for Hotels and Homes",
+      },
+      {
+        src: "/portfolio-images/tiket/tiket-5.jpg",
+        alt: "Tiket.com Hotel Room Selection Section with all Room Options and Prices",
+        caption: "Hotel Room Selection Section with all Room Options and Prices",
+      },
+      {
+        src: "/portfolio-images/tiket/tiket-6.jpg",
+        alt: "Tiket.com Hotel SEO Page List for all Cheap Hotels in Jakarta",
+        caption: "Hotel SEO Page List for all Cheap Hotels in Jakarta",
+      },
+      {
+        src: "/portfolio-images/tiket/tiket-7.jpg",
+        alt: "Tiket.com Hotel SEO Most Favorite Hotels Page for Jakarta",
+        caption: "Hotel SEO Most Favorite Hotels Page for Jakarta",
+      },
     ],
-    tags: ["Node.js", "TypeScript", "PostgreSQL"],
-    githubUrl: "#",
+    tags: ["Next.js", "TypeScript", "React.js", "WebView", "SEO", "Lighthouse"],
+    githubUrl: "",
     liveUrl: "#",
   },
   {
@@ -31,9 +62,9 @@ export const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=600&q=80",
     images: [
-      "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=900&q=80",
-      "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=900&q=80&sat=-100",
-      "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=900&q=80",
+      { src: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=900&q=80", alt: "EdTech CMS dashboard overview" },
+      { src: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=900&q=80&sat=-100", alt: "EdTech CMS content editor" },
+      { src: "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=900&q=80", alt: "EdTech CMS collaboration view" },
     ],
     tags: ["Next.js", "Prisma", "Redis"],
     githubUrl: "#",
@@ -48,9 +79,9 @@ export const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=600&q=80",
     images: [
-      "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=900&q=80",
-      "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=900&q=80&sat=-100",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80",
+      { src: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=900&q=80", alt: "Genetic Engine pipeline visualization" },
+      { src: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=900&q=80&sat=-100", alt: "Genetic Engine data processing view" },
+      { src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=900&q=80", alt: "Genetic Engine analysis results" },
     ],
     tags: ["Python", "FastAPI", "ML"],
     githubUrl: "#",
@@ -65,9 +96,9 @@ export const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&q=80",
     images: [
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=80",
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=80&sat=-100",
-      "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=900&q=80",
+      { src: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=80", alt: "E-Commerce Platform storefront" },
+      { src: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=80&sat=-100", alt: "E-Commerce Platform vendor dashboard" },
+      { src: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=900&q=80", alt: "E-Commerce Platform checkout flow" },
     ],
     tags: ["React", "GraphQL", "Stripe"],
     githubUrl: "#",
@@ -82,9 +113,9 @@ export const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80",
     images: [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=80",
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=80&sat=-100",
-      "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=900&q=80",
+      { src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=80", alt: "Analytics Dashboard overview charts" },
+      { src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&q=80&sat=-100", alt: "Analytics Dashboard custom report builder" },
+      { src: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=900&q=80", alt: "Analytics Dashboard real-time updates view" },
     ],
     tags: ["Vue.js", "D3.js", "WebSocket"],
     githubUrl: "#",
@@ -99,9 +130,9 @@ export const projects: Project[] = [
     image:
       "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=600&q=80",
     images: [
-      "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=900&q=80",
-      "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=900&q=80&sat=-100",
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=80",
+      { src: "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=900&q=80", alt: "DevOps Pipeline CI/CD dashboard" },
+      { src: "https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=900&q=80&sat=-100", alt: "DevOps Pipeline container monitoring view" },
+      { src: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=80", alt: "DevOps Pipeline deployment logs" },
     ],
     tags: ["Docker", "K8s", "Terraform"],
     githubUrl: "#",

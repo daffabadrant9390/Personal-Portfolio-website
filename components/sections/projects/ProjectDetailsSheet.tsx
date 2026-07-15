@@ -69,8 +69,7 @@ export function ProjectDetailsSheet({ project, onClose }: ProjectDetailsSheetPro
     >
       <div className="mb-5 overflow-hidden rounded-xl border border-border">
         <ProjectGallery
-          images={project.images?.length ? project.images : [project.image]}
-          alt={project.title}
+          images={project.images?.length ? project.images : [{ src: project.image, alt: project.title }]}
           heightClass="h-56 sm:h-64"
         />
       </div>

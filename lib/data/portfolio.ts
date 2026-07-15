@@ -51,7 +51,7 @@ export const projects: Project[] = [
     ],
     tags: ["Next.js", "TypeScript", "React.js", "WebView", "SEO", "Lighthouse"],
     githubUrl: "",
-    liveUrl: "#",
+    liveUrl: "https://www.tiket.com/hotel",
   },
   {
     id: "2",

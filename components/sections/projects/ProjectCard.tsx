@@ -48,9 +48,27 @@ export function ProjectCard({ project, onViewDetails }: ProjectCardProps) {
         </p>
 
         <div className="flex flex-wrap gap-1.5 mb-4">
-          {project.tags.map((tag) => (
-            <TechBadge key={tag} tag={tag} />
+          {project.tags.slice(0, 4).map((tag, i) => (
+            <span key={tag} className={i === 3 ? "hidden shrink-0 sm:inline-flex" : "inline-flex shrink-0"}>
+              <TechBadge tag={tag} />
+            </span>
           ))}
+          {project.tags.length > 3 && (
+            <span
+              className="sm:hidden inline-flex shrink-0 items-center rounded-md border border-border
+                         bg-background px-2 py-1 text-[10px] font-medium text-muted-foreground"
+            >
+              +{project.tags.length - 3}
+            </span>
+          )}
+          {project.tags.length > 4 && (
+            <span
+              className="hidden sm:inline-flex shrink-0 items-center rounded-md border border-border
+                         bg-background px-2 py-1 text-[10px] sm:text-[11px] font-medium text-muted-foreground"
+            >
+              +{project.tags.length - 4}
+            </span>
+          )}
         </div>
 
         <div className="mt-auto flex items-center gap-2 pt-3 border-t border-border">
@@ -66,21 +84,23 @@ export function ProjectCard({ project, onViewDetails }: ProjectCardProps) {
             <Eye size={15} />
           </button>
 
-          {project.githubUrl && (
+          {(project.githubUrl ?? []).map((link) => (
             <a
-              href={project.githubUrl}
+              key={link.url}
+              href={link.url}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              aria-label={`Open GitHub repository for ${project.title}`}
-              title="Open GitHub"
-              className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border border-border
-                         text-muted-foreground hover:text-foreground
+              aria-label={`Open ${link.label} GitHub repository for ${project.title}`}
+              title={`Open GitHub (${link.label})`}
+              className="flex h-9 cursor-pointer items-center gap-1.5 rounded-lg border border-border
+                         px-2.5 text-xs font-medium text-muted-foreground hover:text-foreground
                          hover:border-slate-300 dark:hover:border-slate-600 transition-colors"
             >
               <GithubIcon size={15} />
+              {link.label}
             </a>
-          )}
+          ))}
 
           {project.liveUrl && (
             <a

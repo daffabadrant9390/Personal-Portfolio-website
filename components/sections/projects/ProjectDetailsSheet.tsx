@@ -15,7 +15,8 @@ interface ProjectDetailsSheetProps {
 export function ProjectDetailsSheet({ project, onClose }: ProjectDetailsSheetProps) {
   if (!project) return null;
 
-  const hasActions = !!(project.githubUrl || project.liveUrl);
+  const githubLinks = project.githubUrl ?? [];
+  const hasActions = !!(githubLinks.length || project.liveUrl);
 
   return (
     <ResponsiveOverlay
@@ -36,9 +37,10 @@ export function ProjectDetailsSheet({ project, onClose }: ProjectDetailsSheetPro
       footer={
         hasActions ? (
           <div className="flex flex-col sm:flex-row gap-3">
-            {project.githubUrl && (
+            {githubLinks.map((link) => (
               <a
-                href={project.githubUrl}
+                key={link.url}
+                href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl
@@ -47,9 +49,9 @@ export function ProjectDetailsSheet({ project, onClose }: ProjectDetailsSheetPro
                            hover:bg-blue-50 dark:hover:bg-blue-950/20 transition-all"
               >
                 <GithubIcon size={15} />
-                View Code
+                {githubLinks.length > 1 ? `${link.label} Code` : "View Code"}
               </a>
-            )}
+            ))}
             {project.liveUrl && (
               <a
                 href={project.liveUrl}

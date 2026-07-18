@@ -1,26 +1,14 @@
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Container } from "@/components/shared/Container";
 import { techCategories } from "@/lib/data/portfolio";
-
-const DEVICON_BASE = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons";
-
-const ICON_MAP: Record<string, string> = {
-  react:      `${DEVICON_BASE}/react/react-original.svg`,
-  typescript: `${DEVICON_BASE}/typescript/typescript-original.svg`,
-  nodejs:     `${DEVICON_BASE}/nodejs/nodejs-original.svg`,
-  python:     `${DEVICON_BASE}/python/python-original.svg`,
-  nextjs:     `${DEVICON_BASE}/nextjs/nextjs-original.svg`,
-  nestjs:     `${DEVICON_BASE}/nestjs/nestjs-original.svg`,
-  fastapi:    `${DEVICON_BASE}/fastapi/fastapi-original.svg`,
-  graphql:    `${DEVICON_BASE}/graphql/graphql-plain.svg`,
-  vscode:     `${DEVICON_BASE}/vscode/vscode-original.svg`,
-  figma:      `${DEVICON_BASE}/figma/figma-original.svg`,
-  git:        `${DEVICON_BASE}/git/git-original.svg`,
-  docker:     `${DEVICON_BASE}/docker/docker-original.svg`,
-};
+import { getDeviconUrl, getIconTone } from "@/lib/devicons";
 
 function TechIcon({ name, icon }: { name: string; icon: string }) {
-  const src = ICON_MAP[icon];
+  const src = getDeviconUrl(icon);
+  const tone = getIconTone(icon);
+  const invertClass =
+    tone === "dark" ? "dark:invert" : tone === "light" ? "invert dark:invert-0" : "";
+
   return (
     <div className="group flex flex-col items-center gap-2 rounded-xl
                     border border-border bg-card
@@ -35,8 +23,8 @@ function TechIcon({ name, icon }: { name: string; icon: string }) {
           <img
             src={src}
             alt={name}
-            className="h-5 w-5 sm:h-7 sm:w-7 object-contain
-                       transition-transform duration-200 group-hover:scale-110"
+            className={`h-5 w-5 sm:h-7 sm:w-7 object-contain
+                       transition-transform duration-200 group-hover:scale-110 ${invertClass}`}
             loading="lazy"
           />
         ) : (

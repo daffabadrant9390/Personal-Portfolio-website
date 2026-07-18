@@ -4,6 +4,11 @@ export interface ProjectImage {
   caption?: string;
 }
 
+export interface GithubLink {
+  label: string;
+  url: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -14,7 +19,8 @@ export interface Project {
   images?: ProjectImage[];
   tags: string[];
   liveUrl?: string;
-  githubUrl?: string;
+  /** Labeled repo links (e.g. a single "Github" entry, or separate FE/BE repos). */
+  githubUrl?: GithubLink[];
 }
 
 export interface Experience {

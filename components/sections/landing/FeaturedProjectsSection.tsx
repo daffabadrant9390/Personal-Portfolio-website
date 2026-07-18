@@ -28,18 +28,22 @@ function ProjectCard({ project }: { project: Project }) {
         <div className="absolute inset-0 flex items-center justify-center gap-3
                         opacity-0 group-hover:opacity-100 transition-all duration-300
                         bg-black/40 backdrop-blur-sm">
-          {project.githubUrl && (
+          {(project.githubUrl ?? []).map((link, i, links) => (
             <a
-              href={project.githubUrl}
+              key={link.url}
+              href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`GitHub repository for ${project.title}`}
-              className="flex h-8 w-8 items-center justify-center rounded-lg
-                         bg-white/15 hover:bg-white/25 text-white transition-colors"
+              aria-label={`${link.label} GitHub repository for ${project.title}`}
+              title={`Open GitHub (${link.label})`}
+              className={`flex h-8 items-center gap-1 rounded-lg bg-white/15 hover:bg-white/25
+                         text-white transition-colors
+                         ${links.length > 1 ? "px-2 text-[11px] font-medium" : "w-8 justify-center"}`}
             >
               <GithubIcon size={14} />
+              {links.length > 1 && link.label}
             </a>
-          )}
+          ))}
           {project.liveUrl && (
             <a
               href={project.liveUrl}
@@ -65,17 +69,36 @@ function ProjectCard({ project }: { project: Project }) {
           {project.description}
         </p>
         <div className="flex flex-wrap gap-1">
-          {project.tags.map((tag) => (
+          {project.tags.slice(0, 4).map((tag, i) => (
             <span
               key={tag}
-              className="rounded-md bg-slate-100 dark:bg-slate-800/60
+              className={`shrink-0 whitespace-nowrap rounded-md bg-slate-100 dark:bg-slate-800/60
                          px-1.5 py-0.5 text-[9px] sm:text-[10px]
                          font-medium text-slate-600 dark:text-slate-400
-                         border border-slate-200 dark:border-slate-700/50"
+                         border border-slate-200 dark:border-slate-700/50
+                         ${i === 3 ? "hidden sm:inline-flex" : "inline-flex"}`}
             >
               {tag}
             </span>
           ))}
+          {project.tags.length > 3 && (
+            <span
+              className="sm:hidden inline-flex shrink-0 rounded-md bg-slate-100 dark:bg-slate-800/60
+                         px-1.5 py-0.5 text-[9px] font-medium text-slate-600 dark:text-slate-400
+                         border border-slate-200 dark:border-slate-700/50"
+            >
+              +{project.tags.length - 3}
+            </span>
+          )}
+          {project.tags.length > 4 && (
+            <span
+              className="hidden sm:inline-flex shrink-0 rounded-md bg-slate-100 dark:bg-slate-800/60
+                         px-1.5 py-0.5 text-[9px] sm:text-[10px] font-medium text-slate-600 dark:text-slate-400
+                         border border-slate-200 dark:border-slate-700/50"
+            >
+              +{project.tags.length - 4}
+            </span>
+          )}
         </div>
       </div>
     </div>
@@ -107,8 +130,8 @@ function MarqueeRow({
 }
 
 export function FeaturedProjectsSection() {
-  const row1 = projects.slice(0, 3);
-  const row2 = projects.slice(3, 6);
+  const row1 = projects.filter((_, i) => i % 2 === 0);
+  const row2 = projects.filter((_, i) => i % 2 === 1);
 
   return (
     <section className="relative py-20 md:py-32 overflow-hidden bg-background">

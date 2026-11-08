@@ -47,3 +47,6 @@ generated/prisma
 
 # temp
 *.tgz
+
+# allow the committed env template
+!.env.example

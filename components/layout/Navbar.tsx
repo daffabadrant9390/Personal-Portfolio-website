@@ -20,7 +20,8 @@ const NAV_LINKS = [
 
 export function Navbar() {
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
+  const { theme, resolvedTheme, setTheme } = useTheme();
+  const activeTheme = resolvedTheme ?? theme;
   const { toggleMobileMenu } = useUIStore();
   const { isDesktop } = useBreakpoint();
   const [scrolled, setScrolled] = useState(false);
@@ -42,7 +43,7 @@ export function Navbar() {
       transition={{ duration: 0.4, ease: "easeOut" }}
       className={`fixed inset-x-0 top-0 z-30 transition-all duration-300 ${
         scrolled
-          ? "border-b border-border bg-background/90 backdrop-blur-xl shadow-sm"
+          ? "border-b-2 border-border bg-background/92 backdrop-blur-xl"
           : "bg-transparent"
       }`}
     >
@@ -54,19 +55,21 @@ export function Navbar() {
             from waiting for `mounted` before rendering the real logo. */}
         <Link href="/" className="flex-shrink-0 hover:opacity-80 transition-opacity">
           <Image
-            src="/logo-light.png"
+            src="/logo-light.webp"
             alt="DAFFA logo"
-            width={100}
-            height={40}
-            className="block dark:hidden object-contain h-10 w-auto md:h-12"
+            width={629}
+            height={640}
+            sizes="56px"
+            className="block dark:hidden object-contain h-14 w-auto"
             priority
           />
           <Image
-            src="/logo-dark.png"
+            src="/logo-dark.webp"
             alt="DAFFA logo"
-            width={100}
-            height={40}
-            className="hidden dark:block object-contain h-10 w-auto md:h-12"
+            width={576}
+            height={640}
+            sizes="56px"
+            className="hidden dark:block object-contain h-14 w-auto"
             priority
           />
         </Link>
@@ -80,14 +83,14 @@ export function Navbar() {
                 href={link.href}
                 className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
                   pathname === link.href
-                    ? "text-slate-900 dark:text-white"
-                    : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {pathname === link.href && (
                   <motion.span
                     layoutId="nav-indicator"
-                    className="absolute inset-0 rounded-lg bg-slate-900/6 dark:bg-white/8"
+                    className="absolute inset-0 rounded-lg bg-accent"
                     transition={{ type: "spring", damping: 32, stiffness: 320 }}
                   />
                 )}
@@ -102,14 +105,13 @@ export function Navbar() {
           {/* Theme toggle — only render after mount to avoid hydration mismatch */}
           {mounted && (
             <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              onClick={() => setTheme(activeTheme === "dark" ? "light" : "dark")}
               aria-label="Toggle theme"
-              className="flex h-9 w-9 items-center justify-center rounded-lg
-                         text-slate-500 hover:text-slate-900 hover:bg-slate-900/6
-                         dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/8
-                         transition-all"
+              className="flex h-11 w-11 items-center justify-center rounded-xl
+                         text-muted-foreground hover:text-foreground hover:bg-accent
+                         transition-colors"
             >
-              {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
+              {activeTheme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
             </button>
           )}
 
@@ -117,8 +119,8 @@ export function Navbar() {
           {isDesktop && (
             <Link
               href="/contact"
-              className="rounded-lg bg-blue-700 px-4 py-2 text-sm font-semibold text-white
-                         hover:bg-blue-600 transition-colors shadow-md shadow-blue-700/20"
+              className="rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground
+                         hover:opacity-90 transition-opacity"
             >
               Let&apos;s Talk
             </Link>
@@ -129,10 +131,9 @@ export function Navbar() {
             <button
               onClick={toggleMobileMenu}
               aria-label="Open menu"
-              className="flex h-9 w-9 items-center justify-center rounded-lg
-                         text-slate-500 hover:text-slate-900 hover:bg-slate-900/6
-                         dark:text-slate-400 dark:hover:text-white dark:hover:bg-white/8
-                         transition-all"
+              className="flex h-11 w-11 items-center justify-center rounded-xl
+                         text-muted-foreground hover:text-foreground hover:bg-accent
+                         transition-colors"
             >
               <Menu size={20} />
             </button>

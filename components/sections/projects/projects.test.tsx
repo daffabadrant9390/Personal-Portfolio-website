@@ -130,13 +130,13 @@ describe("ProjectFilters", () => {
 
   it("highlights the active category chip", () => {
     render(<ProjectFilters {...baseProps} activeCategory="Frontend" />);
-    expect(screen.getByRole("button", { name: "Frontend" }).className).toContain("bg-blue-600");
-    expect(screen.getByRole("button", { name: "All" }).className).not.toContain("bg-blue-600");
+    expect(screen.getByRole("button", { name: "Frontend" }).className).toContain("bg-primary");
+    expect(screen.getByRole("button", { name: "All" }).className).not.toContain("bg-primary");
   });
 
   it("highlights All when no category is active", () => {
     render(<ProjectFilters {...baseProps} />);
-    expect(screen.getByRole("button", { name: "All" }).className).toContain("bg-blue-600");
+    expect(screen.getByRole("button", { name: "All" }).className).toContain("bg-primary");
   });
 
   it("forwards sort changes and ignores empty values", () => {

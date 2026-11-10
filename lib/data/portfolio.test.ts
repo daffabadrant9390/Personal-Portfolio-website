@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { experiences, projects, techCategories } from "./portfolio";
+import { currentlyBuilding, education, experiences, projects, softSkills, techCategories } from "./portfolio";
 
 const isHttpUrl = (value: string) => {
   try {
@@ -27,14 +27,14 @@ describe("projects", () => {
       expect(project.category.trim()).not.toBe("");
       expect(project.description.trim()).not.toBe("");
       expect(project.tags.length).toBeGreaterThan(0);
-      expect(project.image.startsWith("/")).toBe(true);
+      expect(project.image.startsWith("/") || isHttpUrl(project.image)).toBe(true);
     }
   );
 
   it("gives every gallery image a source and alt text", () => {
     projects.forEach((project) => {
       project.images?.forEach((image) => {
-        expect(image.src.startsWith("/")).toBe(true);
+        expect(image.src.startsWith("/") || isHttpUrl(image.src)).toBe(true);
         expect(image.alt.trim()).not.toBe("");
       });
     });
@@ -76,8 +76,58 @@ describe("experiences", () => {
     });
   });
 
-  it("marks at most one experience as current", () => {
-    expect(experiences.filter((experience) => experience.current).length).toBeLessThanOrEqual(1);
+  it("separates full time from non full time experience", () => {
+    const groups = new Set(experiences.map((experience) => experience.group));
+    expect(groups).toEqual(new Set(["full-time", "non-full-time"]));
+  });
+
+  it("keeps contract, part time and community work out of the full time group", () => {
+    experiences.forEach((experience) => {
+      if (["Contract", "Part time", "Community"].includes(experience.employmentType)) {
+        expect(experience.group).toBe("non-full-time");
+      } else {
+        expect(experience.group).toBe("full-time");
+      }
+    });
+  });
+
+  it("gives every entry bullets, either directly or per role", () => {
+    experiences.forEach((experience) => {
+      const bullets = experience.roles
+        ? experience.roles.flatMap((role) => role.highlights)
+        : experience.highlights ?? [];
+      expect(bullets.length).toBeGreaterThan(0);
+      bullets.forEach((bullet) => expect(bullet.trim()).not.toBe(""));
+    });
+  });
+
+  it("lists both tiket.com roles with their own period", () => {
+    const tiket = experiences.find((experience) => experience.id === "tiket");
+    expect(tiket?.roles?.map((role) => role.title)).toEqual([
+      "Software Engineer II (Frontend)",
+      "Software Engineer I (Frontend)",
+    ]);
+    tiket?.roles?.forEach((role) => expect(role.period.trim()).not.toBe(""));
+  });
+
+  it("avoids em dashes and en dashes in visible copy", () => {
+    const text = JSON.stringify({ experiences, projects, techCategories, softSkills, education });
+    expect(text).not.toMatch(/[\u2013\u2014]/);
+  });
+});
+
+describe("soft skills and education", () => {
+  it("backs every soft skill with evidence", () => {
+    expect(softSkills.length).toBeGreaterThan(0);
+    softSkills.forEach((skill) => {
+      expect(skill.title.trim()).not.toBe("");
+      expect(skill.evidence.trim()).not.toBe("");
+    });
+  });
+
+  it("has education and currently building topics", () => {
+    expect(education.length).toBeGreaterThan(0);
+    expect(currentlyBuilding.length).toBeGreaterThan(0);
   });
 });
 
@@ -98,6 +148,15 @@ describe("techCategories", () => {
       category.items.forEach((item) => {
         expect(item.name.trim()).not.toBe("");
         expect(item.icon.trim()).not.toBe("");
+      });
+    });
+  });
+
+  it("resolves a logo for every skill with an icon key", async () => {
+    const { getDeviconUrl } = await import("./../devicons");
+    techCategories.forEach((category) => {
+      category.items.forEach((item) => {
+        expect(getDeviconUrl(item.icon), `${item.name} (${item.icon})`).toBeDefined();
       });
     });
   });

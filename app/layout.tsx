@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk, Geist_Mono } from "next/font/google";
+import { Inter, Poppins, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/shared/ThemeProvider";
 import { Navbar } from "@/components/layout/Navbar";
@@ -12,22 +12,23 @@ const inter = Inter({
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  weight: ["600", "700", "800"],
+  variable: "--font-poppins",
   display: "swap",
 });
 
-const geistMono = Geist_Mono({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  variable: "--font-geist-mono",
+  variable: "--font-jetbrains-mono",
   display: "swap",
 });
 
 const SITE_URL = "https://daffabadranthoriq.com";
-const SITE_TITLE = "M. Daffa Badranthoriq — Full Stack Engineer";
+const SITE_TITLE = "M. Daffa Badranthoriq | Full Stack Software Engineer";
 const SITE_DESCRIPTION =
-  "Full Stack Engineer specializing in scalable web infrastructure, distributed systems, and high-performance applications.";
+  "Full Stack Software Engineer in Jakarta building with Next.js, TypeScript and Golang, plus AI and LLM applications. 4.5+ years across fintech, travel and AI.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -37,8 +38,10 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   keywords: [
-    "Full Stack Engineer",
-    "Software Engineer",
+    "Full Stack Software Engineer",
+    "Software Engineer Jakarta",
+    "Golang",
+    "AI Applications",
     "Next.js",
     "TypeScript",
     "React",
@@ -74,13 +77,13 @@ export const metadata: Metadata = {
     images: ["/opengraph-image"],
   },
   icons: {
+    // Same artwork as the dark mode navbar logo. app/favicon.ico is picked up
+    // automatically by Next, these cover the PNG sizes.
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
       { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
     ],
-    apple: [{ url: "/apple-icon.png" }],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
 };
 
@@ -89,7 +92,8 @@ const personJsonLd = {
   "@type": "Person",
   name: "M. Daffa Badranthoriq",
   url: SITE_URL,
-  jobTitle: "Full Stack Engineer",
+  jobTitle: "Full Stack Software Engineer",
+  worksFor: { "@type": "Organization", name: "Kredivo Group" },
   description: SITE_DESCRIPTION,
   address: {
     "@type": "PostalAddress",
@@ -109,7 +113,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceGrotesk.variable} ${geistMono.variable}`}
+      data-scroll-behavior="smooth"
+      className={`${inter.variable} ${poppins.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-screen flex flex-col" suppressHydrationWarning>

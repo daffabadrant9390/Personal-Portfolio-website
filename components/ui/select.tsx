@@ -18,8 +18,8 @@ function SelectTrigger({
       className={cn(
         "group flex items-center justify-between gap-2 rounded-xl border border-border bg-background px-4 py-2.5",
         "text-sm text-foreground outline-none transition-all",
-        "focus-visible:border-blue-500 focus-visible:ring-2 focus-visible:ring-blue-500/15",
-        "data-[popup-open]:border-blue-500 data-[popup-open]:ring-2 data-[popup-open]:ring-blue-500/15",
+        "focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-ring/20",
+        "data-[popup-open]:border-border data-[popup-open]:ring-2 data-[popup-open]:ring-ring/20",
         "sm:w-48 cursor-pointer select-none",
         className
       )}
@@ -97,7 +97,7 @@ function SelectItem({
     >
       <span className="flex size-4 items-center justify-center">
         <SelectPrimitive.ItemIndicator>
-          <Check size={14} className="text-blue-600" />
+          <Check size={14} className="text-primary" />
         </SelectPrimitive.ItemIndicator>
       </span>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>

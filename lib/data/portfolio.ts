@@ -1,4 +1,10 @@
-import type { Project, Experience, TechCategory } from "@/lib/types";
+import type {
+  Project,
+  Experience,
+  TechCategory,
+  SoftSkill,
+  EducationEntry,
+} from "@/lib/types";
 
 // Static portfolio content. Plain module (no "use client" / no store) so it can
 // be imported directly by Server Components without shipping the data as
@@ -7,10 +13,10 @@ import type { Project, Experience, TechCategory } from "@/lib/types";
 export const projects: Project[] = [
   {
     id: "1",
-    title: "Tiket.com - Accommodation Platform",
+    title: "tiket.com Accommodation and Post Purchase",
     category: "Frontend",
     description:
-      "Rebuilt hotel & homes accommodation pages and post-purchase flows for one of Indonesia's largest OTAs, cutting LCP/CLS under 2s and lifting page performance & SEO scores by 80% while sustaining 90%+ unit test coverage in production.",
+      "Rebuilt the hotel and homes accommodation pages in Next.js and TypeScript for one of Indonesia's largest online travel marketplaces, with Lighthouse SEO above 90, LCP under 2.5 s and CLS under 0.1. Also delivered the post purchase flows (Reschedule, Refund, Revise Booking, Self Service Rebook and Relocation) and later moved them to server side rendering, cutting page load from about 8 s to 2 to 4 s.",
     image: "/portfolio-images/tiket/tiket-1.jpg",
     images: [
       {
@@ -55,10 +61,10 @@ export const projects: Project[] = [
   },
   {
     id: "2",
-    title: "Prism - AI Trading Chart Assistant",
-    category: "Full-Stack",
+    title: "Prism, AI Trading Chart Assistant",
+    category: "Full Stack",
     description:
-      "Architected a Chrome Extension AI assistant for real-time trading chart analysis, integrating Claude LLM to deliver 2x faster market analysis. Owned full-stack product engineering — auth, Stripe payments, and PostHog analytics — as lead engineer for a 3-person team, cutting delivery time by 30%.",
+      "Architected a Chrome extension AI assistant for real time stock and Web3 chart analysis, published on the Chrome Web Store. Claude's API is the core feature, turning chart screenshots and questions into trend analysis, with a designed system prompt and context enrichment. Owned Google Auth, Stripe payments and PostHog analytics for the full onboarding to payment journey, and led a 3 person team.",
     image:
       "/portfolio-images/prism/prism-1.jpg",
     images: [
@@ -66,7 +72,7 @@ export const projects: Project[] = [
       { src: "/portfolio-images/prism/prism-2.jpg", alt: "Prism trading chart analysis view" },
       { src: "/portfolio-images/prism/prism-3.jpg", alt: "Prism onboarding and payments flow" },
     ],
-    tags: ["Claude AI", "React.js", "TypeScript", "Firebase", "Supabase", "Stripe, wix.js", "PostHog", "Tailwind CSS", "Chrome Extension"],
+    tags: ["Claude AI", "React.js", "TypeScript", "Firebase", "Supabase", "Stripe", "PostHog", "Tailwind CSS", "Chrome Extension"],
     githubUrl: [
       { label: "FE", url: "https://github.com/helloprismai/prism-extension" },
       { label: "BE", url: "https://github.com/helloprismai/Prism-Server-Side" },
@@ -75,10 +81,10 @@ export const projects: Project[] = [
   },
   {
     id: "3",
-    title: "Pergi Ceria - Tour, Travel & Event Bookings",
-    category: "Full-Stack",
+    title: "Pergi Ceria Tour, Travel and Event Bookings",
+    category: "Full Stack",
     description:
-      "Built an end-to-end OTA-style booking platform for tours, travel, and live events (tennis, padel, and more) — from SEO landing pages and search to checkout, spanning both B2C self-service and dashboard-driven manual orders. Engineered RBAC with super-admin approval workflows, a dynamic CMS for content teams, Xendit payment integration, and automated e-ticket/receipt delivery via email, backed by Golang/Gin services and Redis-cached, observability-instrumented infrastructure. Continuously own UI/UX refinement, PageSpeed performance monitoring, and SEO/SEM strategy to drive organic and paid growth.",
+      "Architected and shipped pergiceria.com in Golang, Next.js and MySQL, a booking platform for local and international tours with B2C self service and B2B manual orders. Xendit covers 8+ payment channels, Resend and Twilio send notifications, and Mekari Qontak powers CRM and AI for WhatsApp conversations. 20+ transactions worth over IDR 50 million (about USD 2,700) since the August 2026 launch, with 90+ Lighthouse and PageSpeed scores.",
     image:
       "/portfolio-images/pergi-ceria/pct-1.jpg",
     images: [
@@ -106,15 +112,18 @@ export const projects: Project[] = [
       "SEO",
       "PageSpeed",
     ],
-    githubUrl: [],
-    liveUrl: "",
+    githubUrl: [
+      { label: "FE", url: "https://github.com/pergiceria2026-comp/Pergi-Ceria-Client" },
+      { label: "BE", url: "https://github.com/pergiceria2026-comp/Pergi-Ceria-Server" },
+    ],
+    liveUrl: "https://pergiceria.com",
   },
   {
     id: "4",
-    title: "TokoNeo — Game Voucher Marketplace Engine",
-    category: "Full-Stack",
+    title: "TokoNeo Game Voucher Marketplace Engine",
+    category: "Full Stack",
     description:
-      "Engineered a white-label game voucher marketplace engine now powering 4 live storefronts, integrating third-party provider catalogs across 20+ active games — from landing and SEO pages to a streamlined buy flow where users pick a game, choose a voucher amount, and pay through our in-house payment gateway. Built a dashboard with daily reporting and transaction history, RBAC, and a dynamic CMS for content teams, while sustaining 90%+ unit test coverage (FE & BE), 90+ green PageSpeed scores on mobile & desktop, and full observability across logs, latency, and server health.",
+      "Engineered a white label game voucher marketplace engine now powering 4 live storefronts, integrating third-party provider catalogs across 20+ active games from landing and SEO pages to a streamlined buy flow where users pick a game, choose a voucher amount, and pay through our in house payment gateway. Built a dashboard with daily reporting and transaction history, RBAC, and a dynamic CMS for content teams, while sustaining 90%+ unit test coverage (frontend and backend), 90+ green PageSpeed scores on mobile & desktop, and full observability across logs, latency, and server health.",
     image:
       "/portfolio-images/tokoneo/tokoneo-landing.jpg",
     images: [
@@ -138,6 +147,81 @@ export const projects: Project[] = [
     ],
     githubUrl: [],
     liveUrl: "https://www.tokoneo.id/",
+  },
+  {
+    id: "7",
+    title: "Pempek Takuw Pre Order Website",
+    category: "Frontend",
+    description:
+      "Built and launched the website for Pempek Takuw, my own Pre Order food business for authentic Pempek Palembang that opened on 10 November 2026. It is a simple static site in Indonesian and English with a product catalogue, clear pricing, ordering terms, bonus cuko tiers by order size and real packaging photos. Orders are handled manually through WhatsApp, so customers go from browsing the menu to chatting with the seller in one tap, with no backend to maintain.",
+    image: "/portfolio-images/pempek-takuw/pempek-takuw-1.jpg",
+    images: [
+      {
+        src: "/portfolio-images/pempek-takuw/pempek-takuw-1.jpg",
+        alt: "Pempek Takuw landing page hero with the Open Pre-Order badge and WhatsApp order button",
+        caption: "Landing page hero with a direct WhatsApp order button",
+      },
+      {
+        src: "/portfolio-images/pempek-takuw/pempek-takuw-2.jpg",
+        alt: "Pempek Takuw menu with five small pempek varieties, Kapal Selam and Lenjer Besar with prices",
+        caption: "Menu catalogue with small pempek, Kapal Selam and Lenjer Besar",
+      },
+      {
+        src: "/portfolio-images/pempek-takuw/pempek-takuw-3.jpg",
+        alt: "Pempek Takuw ordering terms and free cuko bonus by order size",
+        caption: "Ordering terms and free cuko bonus by order size",
+      },
+      {
+        src: "/portfolio-images/pempek-takuw/pempek-takuw-4.jpg",
+        alt: "Pempek Takuw order preview carousel with real vacuum packed pempek and a packaging example",
+        caption: "Order preview with real product and packaging photos",
+      },
+      {
+        src: "/portfolio-images/pempek-takuw/pempek-takuw-5.jpg",
+        alt: "Pempek Takuw mobile layout showing the hero, menu and ordering terms",
+        caption: "Mobile layout with the hero, menu and ordering terms",
+      },
+    ],
+    tags: ["Next.js", "Vercel", "WhatsApp Ordering", "Bilingual ID and EN", "Responsive Design"],
+    githubUrl: [
+      { label: "FE", url: "https://github.com/daffabadrant9390/Pempek-Takuw-Selling" },
+    ],
+    liveUrl: "https://pempek-takuw-selling.vercel.app/id/",
+  },
+  {
+    id: "8",
+    title: "CiptaForge, 3D Workspace Rental Designer",
+    category: "Full Stack",
+    description:
+      "Built an interactive 3D workspace designer where people rent desks, chairs, monitors and accessories by the week instead of buying them. Instead of a normal product grid, users place catalogue items in a real 3D room, move and rotate them, and watch the weekly price, bundle discount and total update live, with weekly or monthly billing and USD or IDR. An Ask AI assistant turns a plain description such as \"I am a CEO of a software house\" into a suggested setup with an estimated cost that can be added to the room in one click, with quick start presets for Freelance Developer, Day Trader and Content Creator. Setups can be saved, shared by link and sent by email with the estimate. Responsive from desktop to mobile, with light and dark themes.",
+    image: "/portfolio-images/ciptaforge/ciptaforge-1.jpg",
+    images: [
+      {
+        src: "/portfolio-images/ciptaforge/ciptaforge-1.jpg",
+        alt: "CiptaForge landing page with the headline Design your workspace before a single desk shows up and a 3D desk preview",
+        caption: "Landing page with a live 3D preview of a rented desk setup",
+      },
+      {
+        src: "/portfolio-images/ciptaforge/ciptaforge-2.jpg",
+        alt: "CiptaForge designer with a catalogue on the left, a 3D room in the center and a live priced setup on the right in IDR",
+        caption: "Designer with catalogue, 3D room and a live priced setup in IDR",
+      },
+      {
+        src: "/portfolio-images/ciptaforge/ciptaforge-3.jpg",
+        alt: "CiptaForge Ask AI dialog where a user describes how they work to get a suggested setup",
+        caption: "Ask AI dialog that turns a description into a suggested setup",
+      },
+      {
+        src: "/portfolio-images/ciptaforge/ciptaforge-4.jpg",
+        alt: "CiptaForge mobile layout showing the landing page, the 3D room and the setup price summary",
+        caption: "Mobile layout with the 3D room and a bottom sheet price summary",
+      },
+    ],
+    tags: ["Next.js", "3D WebGL", "Vercel", "AI Suggestions", "Resend", "Responsive Design"],
+    githubUrl: [
+      { label: "Github", url: "https://github.com/daffabadrant9390/interactive-workspace-design-tool" },
+    ],
+    liveUrl: "https://interactive-workspace-design-tool.vercel.app/",
   },
   // {
   //   id: "5",
@@ -175,175 +259,266 @@ export const projects: Project[] = [
   // },
 ];
 
+
+// Experience is split in two groups so the full time career reads on its own,
+// separate from contract, part time and community work. Source: resume master.
 export const experiences: Experience[] = [
+  // ───────────── Full time ─────────────
   {
-    id: "1",
-    role: "Mid Full-Stack Engineer",
+    id: "kredivo",
+    role: "Full Stack Software Engineer",
     company: "Kredivo Group",
-    period: "Jan 2026 – Present",
-    location: "Jakarta, Indonesia",
-    description:
-      "Leading full-stack development of internal collections platforms, driving multi-region rollouts across 4 countries and end-to-end ownership of system design, dashboards, and delivery.",
-    highlights: [
-      "Led full-stack revamp of internal collections platform (Viper) to Golang and Next.js, overhauling UI/UX and RBAC mechanisms while maintaining 90%+ code coverage across FE and BE",
-      "Architected multi-region BigQuery dashboards across 4 countries (Indonesia, Thailand, Philippines, Vietnam), enabling each regional unit to independently track and improve collections performance at 100% business operability",
-      "Took full end-to-end ownership across multiple projects — driving system design, ERD, API contracts, backend logic, and dashboard UI — ensuring on-time delivery and 100% quality compliance",
-      "Accelerated delivery by 70%+ through pragmatic tooling, adopting Google Apps Script, Cloud Run, BigQuery Scheduled Queries, and AppSheet to ship stakeholder requests on time",
-      "Owned delivery of Agent Onboarding Journey Tracking platform integrating 7 stakeholder teams (HR, L&D, Trainer, TL, QC, Area & Regional Manager) into a single cross-platform system",
-    ],
-    tags: ["Golang", "Next.js", "TypeScript", "BigQuery", "Google Cloud Run", "RBAC", "Multi-Region"],
+    period: "Jan 2026 to Present",
+    group: "full-time",
+    employmentType: "Full time",
+    location: "Jakarta, Indonesia (Hybrid)",
+    description: "Consumer fintech and buy now pay later platform across Southeast Asia.",
     current: true,
-  },
-  {
-    id: "2",
-    role: "Lead Software Engineer (Full-Stack & AI)",
-    company: "Jet Studio – Prism",
-    period: "Aug 2025 – Mar 2026",
-    location: "Vancouver, BC, Canada",
-    description:
-      "Led full-stack and AI engineering for a live trading product, building a Chrome Extension AI assistant, integrating LLM models, and owning end-to-end product engineering across auth, payments, and analytics.",
     highlights: [
-      "Architected a Chrome Extension AI assistant for real-time trading chart analysis using React.js, TypeScript, Tailwind CSS, Firebase, Supabase, and Express.js — delivering 100% improvement in trading decision experience",
-      "Integrated Claude AI (LLM) models into a live trading product, enabling 2x faster and more accurate market analysis through intelligent AI-assisted workflows",
-      "Owned full product engineering across auth, payments, and analytics — implementing Google Auth, Stripe, and PostHog for a seamless onboarding-to-payment journey with end-to-end user tracking",
-      "Led a 3-person engineering team, establishing workflows, code standards, and sprint planning that improved delivery speed by 30% with 100% milestone completion",
+      "Led the full stack rebuild of the collections platform as Viper V2 (Next.js 16, TypeScript, Node.js, Golang) with a responsive redesign, role based access control and 90+ Lighthouse scores on desktop and mobile, resolving 10+ legacy bugs.",
+      "Cut response time from about 12 s to 2 to 3 s (75%+ faster, measured in Datadog) with pagination, indexing, cache TTL and database locking.",
+      "Expanded Viper V2 from 1 region to 4 (Indonesia, Thailand, the Philippines and Vietnam) with independent BigQuery reporting and 90%+ test coverage per region.",
+      "Automated access registration and removal for 5,000+ employees with CRON schedulers and an event driven Go service on Kafka, synced from Darwinbox through HMAC verified webhooks with a polling fallback.",
+      "Cut stakeholder request delivery time by roughly 70% by matching the tool to the problem (Apps Script, Cloud Run, BigQuery Scheduled Queries, AppSheet), including 5 GCP schedulers that email collections reports with Slack alerts.",
+      "Delivered the Agent Onboarding Journey Tracking platform, unifying data from 7 teams so leadership can track and improve onboarding pass rates.",
     ],
-    tags: ["React.js", "TypeScript", "Tailwind CSS", "Firebase", "Supabase", "Express.js", "Claude AI", "Stripe"],
-    current: false,
+    tags: ["Next.js", "TypeScript", "Golang", "Node.js", "Kafka", "BigQuery", "Datadog", "Google Cloud"],
   },
   {
-    id: "3",
-    role: "Software Engineer (Frontend)",
-    company: "Tiket.com",
-    period: "Mar 2022 – Dec 2025",
-    location: "Jakarta, Indonesia",
-    description:
-      "Built and maintained high-performance accommodation pages, achieving 80% improvement in page performance and SEO scores while sustaining Lighthouse scores above 90% in production.",
+    id: "tiket",
+    role: "Software Engineer II (Frontend)",
+    company: "tiket.com",
+    period: "Mar 2022 to Dec 2025",
+    group: "full-time",
+    employmentType: "Full time",
+    location: "Jakarta, Indonesia (Hybrid)",
+    description: "Indonesia's largest online travel and transportation marketplace.",
+    url: "https://www.tiket.com",
+    roles: [
+      {
+        title: "Software Engineer II (Frontend)",
+        period: "Jan 2025 to Dec 2025",
+        highlights: [
+          "Proposed and drove the move of post purchase pages from client side to server side rendering, cutting average page load from about 8 s to 2 to 4 s (50 to 75% faster).",
+          "Owned the frontend migration of the post purchase pages in the company wide project to replace m.tiket.com and tiket.com with one responsive tiket.com for all platforms.",
+          "Raised unit test coverage from about 75% to 90%+ with 85% on time delivery and under 5 bugs and 3 defects. Led code and design reviews, supported sprint planning and wrote a 10 page flow specification for onboarding and maintenance.",
+          "Wrote a shared markdown prompting guide for GitHub Copilot and Cursor, coached peers on giving better context, and used Figma and Jira MCP servers with AI assisted PR descriptions and test generation.",
+        ],
+      },
+      {
+        title: "Software Engineer I (Frontend)",
+        period: "Mar 2022 to Dec 2024",
+        highlights: [
+          "Rebuilt responsive accommodation pages (hotels and homes) in Next.js and TypeScript, raising Lighthouse SEO to 90+ and holding Performance and Accessibility above 90, with LCP under 2.5 s and CLS under 0.1.",
+          "Delivered the post purchase flows end to end (Reschedule, Refund, Revise Booking, Self Service Rebook and Relocation), monitoring page load with Lighthouse and API response time with Kibana.",
+          "Served all four flows from one shared Next.js codebase embedded through WebView and iframe in the web, Android and iOS apps, so frontend only changes shipped without an app release.",
+        ],
+      },
+    ],
+    tags: ["Next.js", "TypeScript", "React.js", "Kibana", "Lighthouse", "Figma", "GitHub Copilot", "Cursor"],
+  },
+  {
+    id: "telkom",
+    role: "Full Stack Software Engineer Intern",
+    company: "PT Telkom Indonesia Tbk",
+    period: "Dec 2020 to Apr 2021",
+    group: "full-time",
+    employmentType: "Internship",
+    location: "Palembang, Indonesia (On site)",
+    description: "Indonesia's state owned telecommunications company.",
     highlights: [
-      "Rebuilt responsive accommodation pages (hotel & homes) using Next.js and TypeScript, achieving 80% improvement in page performance and SEO scores with LCP and CLS consistently under 2 seconds",
-      "Engineered post-purchase pages with WebView and Iframe integration, delivering a unified codebase across web, Android, and iOS — improving development and deployment effectiveness by 100%",
-      "Produced 3 technical improvement documents and a 10-page Pre/Post purchase flow documentation, enabling seamless knowledge transfer and long-term maintainability",
-      "Drove code and design review processes sustaining 90%+ unit test coverage, assisting the tech lead on sprint planning to ensure 100% smooth delivery cadence",
-      "Proactively owned continuous page performance monitoring, keeping LCP and CLS green under 2 seconds and Lighthouse Performance & Accessibility scores above 90%",
+      "Built a network problem reporting platform end to end as sole developer in JavaScript and CodeIgniter 3, replacing a paper based incident process with mobile submissions from field teams.",
     ],
-    tags: ["Next.js", "TypeScript", "React.js", "WebView", "Iframe", "SEO", "Lighthouse", "Unit Testing"],
-    current: false,
+    tags: ["JavaScript", "CodeIgniter"],
+  },
+
+  // ───────────── Contract, part time and community ─────────────
+  {
+    id: "pergi-ceria",
+    role: "Lead Software Engineer and Product Manager",
+    company: "Pergi Ceria Tour",
+    period: "Feb 2026 to Present",
+    group: "non-full-time",
+    employmentType: "Contract",
+    location: "Jakarta, Indonesia (Remote)",
+    description: "Travel booking platform for local and international tours, with B2C and B2B flows.",
+    current: true,
+    url: "https://pergiceria.com",
+    highlights: [
+      "Architected and shipped pergiceria.com (Golang, Next.js, MySQL), processing 20+ transactions worth over IDR 50 million (about USD 2,700) since the August 2026 launch, with Xendit across 8+ payment channels, Resend and Twilio notifications, and Mekari Qontak CRM and AI for WhatsApp customer conversations.",
+      "Led a team of 3 (engineer, designer and a business owner for UAT) from research and timeline planning through development, testing, UAT and deployment, and wrote 8 PRDs covering user flows, UI mockups and API contracts, using Claude Code across planning, ERD design, documentation and testing.",
+      "Built B2B tooling: bulk email campaigns for 100+ B2B companies, and a manual booking form with company specific pricing so B2B customers skip the B2C flow.",
+      "Cut monthly infrastructure cost by about 60% by right sizing the VPS with no loss of product quality, and gated notification triggers to keep messaging costs down.",
+    ],
+    tags: ["Golang", "Next.js", "MySQL", "Xendit", "Claude Code", "Lighthouse"],
   },
   {
-    id: "4",
-    role: "Full-Stack Web Development Bootcamp Mentor",
+    id: "fydemy",
+    role: "Full Stack Engineer and Community Handler",
+    company: "Fydemy",
+    period: "Oct 2025 to Present",
+    group: "non-full-time",
+    employmentType: "Community",
+    location: "Singapore (Remote)",
+    description: "Cross border tech R&D community focused on AI, Web3 and cybersecurity.",
+    current: true,
+    url: "https://github.com/fydemy/ui",
+    highlights: [
+      "Co developed an open source Next.js UI component library (github.com/fydemy/ui) with 5 components, 6 GitHub stars, 6 forks and 5 contributors.",
+      "Worked across 4+ projects with a focus on open source tooling, and advised the founder on community quality, audience growth and partners, including as design partner for the cohort program.",
+      "Co organized the inaugural BitBash Hackathon with 3 partner communities, drawing 50 participants (70% above target) and 10+ submissions.",
+      "Delivered 3 tech sharing sessions (software engineering career paths, Next.js 15 features) to 10 to 15 community members each.",
+    ],
+    tags: ["Next.js", "TypeScript", "Open Source", "Community"],
+  },
+  {
+    id: "dibimbing",
+    role: "Full Stack Web Development Bootcamp Mentor",
     company: "Dibimbing.id",
-    period: "Jan 2025 – Feb 2026",
-    location: "Jakarta, Indonesia",
-    description:
-      "Mentored 100+ students across 5 batches in full-stack web development, achieving 4.8/5 satisfaction scores across comprehension, performance, and class interactivity.",
+    period: "Jan 2025 to Present",
+    group: "non-full-time",
+    employmentType: "Part time",
+    location: "Jakarta, Indonesia (Remote)",
+    description: "Tech bootcamp mentoring, 3 to 5 sessions per month.",
+    current: true,
     highlights: [
-      "Mentored 100+ students across 5 batches (FE21, FE22, FE23, GO03, GO04) covering HTML, CSS, Figma, JavaScript, TypeScript, React.js, and Golang — achieving 4.8/5 satisfaction scores",
-      "Designed assignments (4–5 questions/session) with 85%+ of students scoring above 85, demonstrating strong instructional effectiveness across all technical topics",
-      "Collaborated with 3 L&D members and 5 Class Managers to ensure sessions remained structured, interactive, and accessible without overwhelming students on complex materials",
+      "Mentored 200+ students across 10+ batches in 40+ live sessions (JavaScript, TypeScript, React.js, Golang, HTML, CSS and Figma), averaging 4.75+/5 on material understanding, class interactivity and mentor performance, and was asked 5 times to record graduation videos.",
+      "Built session materials: slide decks of about 35 slides with hands on exercise packs on data structures, algorithms and web development fundamentals, with 85%+ of students scoring above 85.",
+      "Worked with 3 L&D members and 5 class managers to refine syllabi without diluting technical depth.",
     ],
-    tags: ["React.js", "TypeScript", "Golang", "JavaScript", "HTML/CSS", "Figma", "Mentoring"],
-    current: false,
+    tags: ["JavaScript", "TypeScript", "React.js", "Golang", "Mentoring"],
   },
   {
-    id: "5",
-    role: "Software Engineer (Full-Stack) Intern",
-    company: "PT. Telkom Indonesia Tbk",
-    period: "Dec 2020 – Apr 2021",
-    location: "Palembang, Indonesia",
-    description:
-      "Independently built a full-stack network problem reporting dashboard from the ground up as a sole contributor, delivering a production-ready platform within the internship period.",
+    id: "jet-studio",
+    role: "Lead AI Software Engineer",
+    company: "Jet Studio (Prism)",
+    period: "Aug 2025 to Mar 2026",
+    group: "non-full-time",
+    employmentType: "Contract",
+    location: "Vancouver, Canada (Remote)",
+    description: "Chrome extension AI assistant for real time stock and Web3 chart analysis.",
     highlights: [
-      "Independently built a full-stack network problem reporting dashboard using JavaScript and CodeIgniter 3, delivering a production-ready platform as a sole contributor within the internship period",
-      "Improved submission effectiveness by 100% by enabling field teams to file reports from mobile devices, eliminating manual processes and accelerating incident response",
-      "Led a 3-person team across the full project lifecycle, demonstrating early leadership ownership beyond internship scope",
+      "Architected and shipped Prism (React.js, TypeScript, Tailwind CSS, Express.js, Firebase, Supabase), built with Claude Code and published on the Chrome Web Store after passing review, with an internal beta of about 5 users.",
+      "Integrated Claude's API as the core feature, turning chart screenshots and questions into real time trend analysis, and designed the system prompt and context enrichment for more grounded answers.",
+      "Owned authentication, payments and analytics (Google Auth, Stripe, PostHog) for a full onboarding to payment journey, with a responsive interface scoring 90+ on Lighthouse for Performance and SEO.",
+      "Led a 3 person cross functional team across time zones, introducing sprint planning, code standards and review workflows that raised sprint completion from 2 of 5 planned tasks to all 5 (2.5x).",
     ],
-    tags: ["JavaScript", "CodeIgniter 3", "PHP", "MySQL", "Full-Stack"],
-    current: false,
+    tags: ["Claude API", "React.js", "TypeScript", "Firebase", "Supabase", "Stripe", "PostHog"],
   },
 ];
 
 export const techCategories: TechCategory[] = [
   {
-    label: "Languages",
+    label: "Frontend and Design",
     items: [
-      { name: "HTML5", icon: "html5" },
-      { name: "CSS3", icon: "css3" },
-      { name: "TypeScript", icon: "typescript" },
-      { name: "Node.js", icon: "nodejs" },
-      { name: "Python", icon: "python" },
-      { name: "Golang", icon: "golang" },
-      { name: "PHP", icon: "php" },
-      { name: "Dart", icon: "dart" },
-      { name: "Flutter", icon: "flutter" },
-    ],
-  },
-  {
-    label: "Frameworks & Libraries",
-    items: [
-      { name: "React.js", icon: "reactjs" },
+      { name: "React.js", icon: "react" },
       { name: "Next.js", icon: "nextjs" },
-      { name: "Express.js", icon: "expressjs" },
-      { name: "Nest.js", icon: "nestjs" },
-      { name: "Laravel", icon: "laravel" },
+      { name: "TypeScript", icon: "typescript" },
       { name: "Tailwind CSS", icon: "tailwindcss" },
+      { name: "Figma", icon: "figma" },
     ],
+    more: ["Responsive Design", "Web Performance", "SEO", "UI/UX Design", "Unit Testing"],
   },
   {
-    label: "Databases & Backend Services",
+    label: "Backend and Data",
     items: [
+      { name: "Golang", icon: "golang" },
+      { name: "Node.js", icon: "nodejs" },
+      { name: "Express.js", icon: "expressjs" },
+      { name: "Kafka", icon: "kafka" },
       { name: "MySQL", icon: "mysql" },
-      { name: "MongoDB", icon: "mongodb" },
+      { name: "BigQuery", icon: "bigquery" },
       { name: "Firebase", icon: "firebase" },
       { name: "Supabase", icon: "supabase" },
-      { name: "GraphQL", icon: "graphql" },
     ],
+    more: ["REST API Design", "Event Driven Architecture"],
   },
   {
-    label: "Payments",
+    label: "Cloud, Monitoring and Payments",
     items: [
+      { name: "Google Cloud", icon: "googlecloud" },
+      { name: "Datadog", icon: "datadog" },
+      { name: "Kibana", icon: "kibana" },
+      { name: "Grafana", icon: "grafana" },
       { name: "Stripe", icon: "stripe" },
       { name: "Xendit", icon: "xendit" },
     ],
+    more: ["Scalyr"],
   },
   {
-    label: "Cloud & Infrastructure",
+    label: "AI and LLM Applications",
     items: [
-      { name: "Cloudflare", icon: "cloudflare" },
-      { name: "Cloudflare R2", icon: "cloudflarer2" },
-      { name: "AWS SES", icon: "awsses" },
-      { name: "Docker", icon: "docker" },
-      { name: "Grafana", icon: "grafana" },
-      { name: "Kibana", icon: "kibana" },
+      { name: "Claude API", icon: "anthropic" },
+      { name: "Claude Code", icon: "claude" },
+      { name: "GitHub Copilot", icon: "githubcopilot" },
+      { name: "Cursor", icon: "cursor" },
+      { name: "MCP", icon: "mcp" },
     ],
-  },
-  {
-    label: "AI Tools",
-    items: [
-      { name: "Claude Code", icon: "claudecode" },
-      { name: "Gemini", icon: "gemini" },
-      { name: "Perplexity", icon: "perplexity" },
-      { name: "Loveable", icon: "loveable" },
-      { name: "Emergent", icon: "emergent" },
-    ],
-  },
-  {
-    label: "Developer & Productivity Tools",
-    items: [
-      { name: "VS Code", icon: "vscode" },
-      { name: "Git", icon: "git" },
-      { name: "GitHub", icon: "github" },
-      { name: "Figma", icon: "figma" },
-      { name: "Postman", icon: "postman" },
-      { name: "DBeaver", icon: "dbeaver" },
-      { name: "Babel", icon: "babel" },
-      { name: "Webpack", icon: "webpack" },
-      { name: "Swagger API", icon: "swaggerapi" },
-      { name: "Confluence", icon: "confluence" },
-      { name: "Resend", icon: "resend" },
-      { name: "PostHog", icon: "posthog" },
-      { name: "WebView", icon: "webview" },
-      { name: "WIX.js", icon: "wixjs" },
+    more: [
+      "Prompt Engineering",
+      "LLM Application Development",
+      "Agentic AI (OpenClaw, Hermes Agent)",
+      "CRM and WhatsApp Integration (Mekari Qontak)",
     ],
   },
 ];
+
+/** Topics being learned right now, shown as a short note under the skills. */
+export const currentlyBuilding = ["AI Agents", "Structured Outputs", "RAG"];
+
+export const softSkills: SoftSkill[] = [
+  {
+    title: "Technical leadership",
+    evidence:
+      "Led teams of 3 at Pergi Ceria Tour and Jet Studio, and raised sprint completion from 2 of 5 planned tasks to all 5.",
+  },
+  {
+    title: "Product management",
+    evidence:
+      "Wrote 8 PRDs covering user flows, UI mockups and API contracts, and ran research, timelines, UAT and deployment.",
+  },
+  {
+    title: "Mentoring",
+    evidence:
+      "Mentored 200+ bootcamp students across 10+ batches, averaging 4.75+/5 from learners.",
+  },
+  {
+    title: "Code review and standards",
+    evidence:
+      "Led code and design reviews at tiket.com and introduced review workflows on distributed teams.",
+  },
+  {
+    title: "Public speaking",
+    evidence:
+      "Judge and speaker at the Fydemy BitBash Hackathon, speaker at the UIUXINDO Product Design Festival, and host of community tech sharing sessions.",
+  },
+  {
+    title: "Technical documentation",
+    evidence:
+      "Wrote a 10 page flow specification, PRDs and shared prompting guides that teams used for onboarding and maintenance.",
+  },
+  {
+    title: "Working across teams",
+    evidence:
+      "Delivered with stakeholders from 7 teams at Kredivo, regional teams in 4 countries, and L&D and class managers at Dibimbing.",
+  },
+];
+
+export const education: EducationEntry[] = [
+  {
+    school: "Universitas Sriwijaya",
+    degree: "B.S. Computer Science",
+    period: "Aug 2018 to Jun 2022",
+    note: "GPA 3.74 / 4.00",
+  },
+];
+
+/** Facts reused across the hero, about preview and about page. All come from the resume. */
+export const profileFacts = {
+  yearsExperience: "4.5+",
+  studentsMentored: "200+",
+  countriesServed: "4",
+  languages: "Indonesian (native), English (native level)",
+};
+
+export const RESUME_HREF = "/M_Daffa_Badran_Thoriq_Resume.pdf";

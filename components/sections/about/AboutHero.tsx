@@ -1,154 +1,88 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { MapPin, Briefcase, ArrowRight, Download } from "lucide-react";
+import { ArrowRight, Download, Handshake, MapPin } from "lucide-react";
+import { AboutHeroCarousel } from "@/components/sections/about/AboutHeroCarousel";
 import { Container } from "@/components/shared/Container";
-
-const STATS = [
-  { value: "4+",  label: "Years of exp." },
-  { value: "12+", label: "Projects shipped" },
-  { value: "3",   label: "Companies" },
-  { value: "99%", label: "Uptime SLA" },
-];
+import { profileFacts, RESUME_HREF } from "@/lib/data/portfolio";
 
 /**
- * Above-the-fold hero for the About page. Isolated as a client island because
- * it runs bespoke mount animations via framer-motion; the rest of the page
- * stays a Server Component.
+ * About hero. Server component: the headline is the LCP candidate so it uses
+ * plain HTML and a CSS animation. On large screens the photos play in a
+ * carousel in the right column; on smaller screens they sit in the full width
+ * gallery below the hero (AboutGallery).
  */
 export function AboutHero() {
   return (
-    <section className="relative overflow-hidden bg-background pt-32 pb-20 md:pt-44 md:pb-28">
-      {/* Top divider */}
-      <div className="absolute top-0 inset-x-0 h-px bg-linear-to-r from-transparent via-border to-transparent" />
-
-      {/* Ambient glow */}
-      <div className="pointer-events-none absolute -top-20 left-1/4 h-[480px] w-[480px]
-                      rounded-full bg-blue-100/50 dark:bg-blue-900/10 blur-[130px]" />
-      <div className="pointer-events-none absolute top-20 right-1/4 h-[320px] w-[320px]
-                      rounded-full bg-red-100/30 dark:bg-red-900/6 blur-[100px]" />
-
+    <section className="relative overflow-hidden bg-background pt-28 pb-10 md:pt-36 md:pb-14">
       <Container className="relative z-10">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_auto] lg:items-center">
-
-          {/* Left: text */}
-          <div className="max-w-2xl">
-            <motion.span
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              className="mb-4 block font-mono text-xs font-semibold uppercase
-                         tracking-widest text-blue-600 dark:text-blue-400"
-            >
-              {/* // About Me */}
-            </motion.span>
-
-            {/* Fades up via a plain CSS animation (not framer-motion) — this
-                is the LCP candidate, and a JS-driven animation would delay
-                LCP until framer-motion hydrates and runs. */}
-            <h1
-              className="animate-fade-up-about font-heading text-4xl font-bold leading-[1.1] tracking-tight
-                         text-foreground sm:text-5xl md:text-[3.5rem]"
-            >
-              The engineer
-              <br />
-              <span className="gradient-text">behind the stack.</span>
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-16">
+          <div>
+            <h1 className="animate-fade-up-about font-heading text-[2.15rem] font-extrabold leading-[1.08] tracking-[-0.03em] text-foreground sm:text-5xl lg:text-[3.4rem]">
+              Full Stack Software Engineer, product minded, and a mentor on the
+              side.
             </h1>
 
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.14, ease: "easeOut" }}
-              className="mt-5 max-w-xl text-base leading-relaxed
-                         text-muted-foreground sm:text-lg"
-            >
-              Full Stack Engineer based in Jakarta — specialising in distributed
-              systems, high-performance APIs, and the user interfaces that sit on top of them.
-            </motion.p>
+            <div className="animate-fade-up-about mt-6 max-w-xl space-y-4 text-base leading-relaxed text-body md:text-lg">
+              <p>
+                I&apos;m Daffa. I have spent {profileFacts.yearsExperience}{" "}
+                years building for fintech, travel and AI, and I like the whole
+                path from a written PRD to a monitored production release.
+              </p>
+              <p>
+                Day to day I work in Next.js, TypeScript and Golang. Lately I
+                also build with Claude: a trading chart assistant that shipped
+                to the Chrome Web Store, and AI customer conversations for a
+                travel booking platform.
+              </p>
+              <p>
+                I have led teams of 3 and mentored{" "}
+                {profileFacts.studentsMentored} bootcamp students, which is why
+                I write specs and reviews that other people can follow.
+              </p>
+            </div>
 
-            {/* Quick pills */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
-              className="mt-6 flex flex-wrap gap-2"
-            >
-              <div className="flex items-center gap-1.5 rounded-full border border-border
-                              bg-card px-3 py-1.5">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-xs text-muted-foreground">Available for hire</span>
-              </div>
-              <div className="flex items-center gap-1.5 rounded-full border border-border
-                              bg-card px-3 py-1.5">
-                <MapPin size={11} className="text-muted-foreground" />
-                <span className="text-xs text-muted-foreground">Jakarta, Indonesia</span>
-              </div>
-              <div className="flex items-center gap-1.5 rounded-full border border-border
-                              bg-card px-3 py-1.5">
-                <Briefcase size={11} className="text-muted-foreground" />
-                <span className="text-xs text-muted-foreground">Full Stack @ Vidato Corp</span>
-              </div>
-            </motion.div>
+            <p className="animate-fade-up-about mt-6 flex max-w-xl items-start gap-2.5 rounded-xl border-2 border-border bg-card px-4 py-3 text-sm leading-relaxed text-body">
+              <Handshake
+                size={18}
+                className="mt-0.5 shrink-0 text-primary"
+                aria-hidden="true"
+              />
+              <span>
+                Open to collaborations, freelance work and full time roles, in
+                Indonesia and abroad. Remote, hybrid or on site all work for me.
+              </span>
+            </p>
 
-            {/* CTA buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.26, ease: "easeOut" }}
-              className="mt-8 flex flex-wrap gap-3"
-            >
+            <div className="animate-fade-up-about mt-8 flex flex-wrap items-center gap-3">
+              <a
+                href={RESUME_HREF}
+                download
+                className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+              >
+                <Download size={15} />
+                Download resume
+              </a>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 rounded-xl bg-blue-700
-                           hover:bg-blue-600 px-5 py-2.5 text-sm font-semibold
-                           text-white shadow-md shadow-blue-700/20 transition-all"
+                className="group inline-flex min-h-11 items-center gap-2 rounded-xl border-2 border-foreground/80 px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-card"
               >
-                Get in Touch
-                <ArrowRight size={14} />
+                Get in touch
+                <ArrowRight
+                  size={15}
+                  className="transition-transform group-hover:translate-x-1"
+                />
               </Link>
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 rounded-xl border border-border
-                           bg-card px-5 py-2.5 text-sm font-semibold text-foreground
-                           hover:border-blue-300 dark:hover:border-blue-700
-                           hover:bg-blue-50 dark:hover:bg-blue-950/20
-                           transition-all"
-              >
-                <Download size={14} />
-                Download CV
-              </a>
-            </motion.div>
+              <span className="inline-flex items-center gap-1.5 px-1 text-sm text-muted-foreground">
+                <MapPin size={14} aria-hidden="true" />
+                Jakarta, Indonesia
+              </span>
+            </div>
           </div>
 
-          {/* Right: stat grid */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.45, delay: 0.18, ease: "easeOut" }}
-            className="grid grid-cols-2 gap-3 lg:w-[280px]"
-          >
-            {STATS.map((s) => (
-              <div
-                key={s.label}
-                className="rounded-2xl border border-border bg-card p-5
-                           flex flex-col gap-1"
-              >
-                <p className="font-heading text-3xl font-bold text-foreground">
-                  {s.value}
-                </p>
-                <p className="text-[11px] uppercase tracking-wider
-                              text-muted-foreground">
-                  {s.label}
-                </p>
-              </div>
-            ))}
-          </motion.div>
-
+          <div className="animate-fade-up-about hidden lg:block">
+            <AboutHeroCarousel />
+          </div>
         </div>
       </Container>
-
-      <div className="absolute bottom-0 inset-x-0 h-px bg-linear-to-r from-transparent via-border to-transparent" />
     </section>
   );
 }

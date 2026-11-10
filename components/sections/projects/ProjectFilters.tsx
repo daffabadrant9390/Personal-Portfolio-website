@@ -29,9 +29,9 @@ interface ProjectFiltersProps {
 }
 
 const chipBase = "rounded-full border px-3.5 py-1.5 text-xs font-medium transition-all";
-const chipActive = "border-blue-600 bg-blue-600 text-white";
+const chipActive = "border-primary bg-primary text-primary-foreground";
 const chipInactive =
-  "border-border bg-card text-muted-foreground hover:border-blue-300 dark:hover:border-blue-700 hover:text-foreground";
+  "border-border bg-card text-muted-foreground hover:border-primary  hover:text-foreground";
 
 export function ProjectFilters({
   search, onSearchChange,
@@ -48,9 +48,7 @@ export function ProjectFilters({
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Search projects by title..."
-            className="w-full rounded-xl border border-border bg-background pl-10 pr-4 py-2.5
-                       text-sm text-foreground placeholder:text-muted-foreground/60 outline-none
-                       transition-all focus:border-blue-500 focus:ring-2 focus:ring-blue-500/15"
+            className="w-full rounded-xl border border-border bg-background pl-10 pr-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-ring/20"
           />
         </div>
 

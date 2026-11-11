@@ -19,7 +19,8 @@ const NAV_LINKS = [
 export function MobileMenu() {
   const { isMobileMenuOpen, setMobileMenuOpen } = useUIStore();
   const pathname = usePathname();
-  const { theme } = useTheme();
+  const { theme, resolvedTheme } = useTheme();
+  const activeTheme = resolvedTheme ?? theme;
   const [mounted, setMounted] = useState(false);
 
   // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -42,7 +43,7 @@ export function MobileMenu() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-40 bg-foreground/40"
             onClick={() => setMobileMenuOpen(false)}
           />
 
@@ -54,31 +55,30 @@ export function MobileMenu() {
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 32, stiffness: 300 }}
             className="fixed inset-y-0 right-0 z-50 flex w-72 flex-col
-                       bg-white dark:bg-[#07090E]
-                       border-l border-slate-200 dark:border-white/6"
+                       bg-background border-l-2 border-border"
           >
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-4
-                            border-b border-slate-200 dark:border-white/6">
+                            border-b-2 border-border">
               {mounted ? (
                 <Image
-                  src={theme === "dark" ? "/logo-dark.png" : "/logo-light.png"}
+                  src={activeTheme === "dark" ? "/logo-dark.webp" : "/logo-light.webp"}
                   alt="DAFFA logo"
-                  width={110}
-                  height={44}
-                  className="object-contain h-11 w-auto"
+                  width={629}
+                  height={640}
+                  sizes="64px"
+                  className="object-contain h-14 w-auto"
                   priority
                 />
               ) : (
-                <span className="font-heading font-bold text-lg text-slate-900 dark:text-white">
+                <span className="font-heading font-extrabold text-lg text-foreground">
                   DAFFA
                 </span>
               )}
               <button
                 onClick={() => setMobileMenuOpen(false)}
-                className="rounded-lg p-2 text-slate-400 hover:text-slate-900
-                           dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/6
-                           transition-colors"
+                className="flex h-11 w-11 items-center justify-center rounded-xl text-muted-foreground
+                           hover:text-foreground hover:bg-accent transition-colors"
                 aria-label="Close menu"
               >
                 <X size={20} />
@@ -96,13 +96,13 @@ export function MobileMenu() {
                 >
                   <Link
                     href={link.href}
-                    className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all ${
+                    className={`flex items-center gap-3 rounded-xl px-4 py-3.5 text-base font-medium transition-all ${
                       pathname === link.href
-                        ? "bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400"
-                        : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-white/6 dark:hover:text-white"
+                        ? "bg-accent text-accent-foreground"
+                        : "text-body hover:bg-surface hover:text-foreground"
                     }`}
                   >
-                    <span className="text-xs text-slate-400 dark:text-slate-600 font-mono">
+                    <span className="text-xs text-muted-foreground font-mono">
                       0{i + 1}
                     </span>
                     {link.label}
@@ -112,17 +112,17 @@ export function MobileMenu() {
             </nav>
 
             {/* Footer CTA */}
-            <div className="p-6 border-t border-slate-200 dark:border-white/6">
+            <div className="p-6 border-t-2 border-border">
               <Link
                 href="/contact"
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex w-full items-center justify-center rounded-xl
-                           bg-blue-700 px-4 py-3 text-sm font-semibold text-white
-                           hover:bg-blue-600 transition-colors"
+                           bg-primary px-4 py-3.5 text-sm font-semibold text-primary-foreground
+                           hover:opacity-90 transition-opacity"
               >
                 Let&apos;s Talk
               </Link>
-              <p className="mt-4 text-center text-xs text-slate-400 dark:text-slate-600">
+              <p className="mt-4 text-center text-xs text-muted-foreground">
                 daffabadrant@gmail.com
               </p>
             </div>

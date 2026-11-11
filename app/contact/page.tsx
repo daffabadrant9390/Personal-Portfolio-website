@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import {
@@ -12,6 +11,7 @@ import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Container } from "@/components/shared/Container";
 import { ErrorFeedback } from "@/components/shared/ErrorFeedback";
 import { useContactStore } from "@/lib/store/useContactStore";
+import { ShimmerImage } from "@/components/shared/ShimmerImage";
 
 /* ─────────────────────────────────────────────────────────
    CONSTANTS — update these with your real details
@@ -40,14 +40,13 @@ function FormField({
     <div className="flex flex-col gap-1.5">
       <label
         htmlFor={id}
-        className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest
-                   text-muted-foreground font-mono"
+        className="text-[10px] sm:text-xs font-semibold uppercase tracking-widest text-muted-foreground font-mono"
       >
         {label}
       </label>
       {children}
       {error && (
-        <p className="flex items-center gap-1 text-[10px] text-red-500 dark:text-red-400">
+        <p className="flex items-center gap-1 text-[10px] text-destructive">
           <AlertCircle size={10} /> {error}
         </p>
       )}
@@ -58,8 +57,8 @@ function FormField({
 const inputBase =
   "w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground " +
   "placeholder:text-muted-foreground/60 outline-none transition-all " +
-  "focus:border-blue-500 dark:focus:border-blue-500 focus:ring-2 " +
-  "focus:ring-blue-500/15 dark:focus:ring-blue-500/20";
+  "focus:border-primary  focus:ring-2 " +
+  "focus:ring-ring/20 ";
 
 /* ─────────────────────────────────────────────────────────
    Main page
@@ -121,13 +120,7 @@ export default function ContactPage() {
     <main className="min-h-screen bg-background">
 
       {/* ── Hero Banner ─────────────────────────────────── */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 bg-background overflow-hidden">
-        <div className="absolute top-0 inset-x-0 h-px bg-linear-to-r from-transparent via-border to-transparent" />
-
-        {/* Subtle ambient glow */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
-                        h-[400px] w-[600px] rounded-full
-                        bg-blue-100/40 dark:bg-blue-900/8 blur-[120px] pointer-events-none" />
+      <section className="relative pt-32 pb-8 md:pt-40 md:pb-12 bg-background overflow-hidden">
 
         <Container className="relative z-10">
           <motion.div
@@ -135,53 +128,39 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, ease: "easeOut" }}
           >
-            <span className="text-xs font-semibold uppercase tracking-widest
-                             text-blue-600 dark:text-blue-400 mb-4 block font-mono">
-              {/* // Contact */}
-            </span>
-            <h1 className="font-heading font-bold leading-[1.1] tracking-tight text-foreground
-                           text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem]">
+            <h1 className="font-heading font-extrabold leading-[1.1] tracking-[-0.03em] text-foreground text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem]">
               Let&apos;s build something
               <br />
-              <span className="gradient-text">great together.</span>
+              <span className="text-primary">worth shipping.</span>
             </h1>
-            <p className="mt-4 md:mt-6 max-w-lg text-sm sm:text-base md:text-lg
-                          leading-relaxed text-muted-foreground">
-              Open to freelance projects, collaborations, or just a technical conversation.
-              I respond within 24 hours.
+            <p className="mt-4 md:mt-6 max-w-lg text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground">
+              Open to new roles, contract work, collaborations or just a technical chat, in
+              Indonesia and abroad. Remote, hybrid or on site all work for me. Email is the
+              fastest way to reach me.
             </p>
           </motion.div>
         </Container>
-
-        <div className="absolute bottom-0 inset-x-0 h-px bg-linear-to-r from-transparent via-border to-transparent" />
       </section>
 
       {/* ── Contact Method Cards ─────────────────────────── */}
-      <section className="pt-16 pb-8 md:pt-20 md:pb-10 bg-background">
+      <section className="pt-0 pb-8 md:pt-8 md:pb-10 bg-background">
         <Container>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
 
             {/* Email */}
             <AnimatedSection delay={0}>
-              <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 flex flex-col gap-4
-                              hover:border-blue-300 dark:hover:border-blue-700
-                              hover:shadow-sm transition-all h-full">
-                <div className="h-10 w-10 rounded-xl flex items-center justify-center
-                                bg-blue-100 dark:bg-blue-950/50
-                                text-blue-600 dark:text-blue-400 shrink-0">
+              <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 flex flex-col gap-4 hover:border-primary hover:shadow-sm transition-all h-full">
+                <div className="h-10 w-10 rounded-xl flex items-center justify-center bg-accent text-primary shrink-0">
                   <Mail size={18} />
                 </div>
                 <div className="flex-1">
-                  <p className="text-[10px] uppercase tracking-widest font-semibold
-                                text-muted-foreground mb-1">Email</p>
+                  <p className="text-[10px] uppercase tracking-widest font-semibold text-muted-foreground mb-1">Email</p>
                   <p className="text-sm font-medium text-foreground break-all">{MY_EMAIL}</p>
                   <p className="text-xs text-muted-foreground mt-1">Best for detailed inquiries</p>
                 </div>
                 <a
                   href={`mailto:${MY_EMAIL}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold
-                             text-blue-600 dark:text-blue-400
-                             hover:text-blue-500 dark:hover:text-blue-300 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-primary transition-colors"
                 >
                   Send Email <ExternalLink size={11} />
                 </a>
@@ -195,24 +174,17 @@ export default function ContactPage() {
                 tabIndex={0}
                 onClick={handleWhatsApp}
                 onKeyDown={(e) => e.key === "Enter" && handleWhatsApp()}
-                className="rounded-2xl border border-border bg-card p-5 sm:p-6 flex flex-col gap-4
-                           hover:border-emerald-300 dark:hover:border-emerald-700/50
-                           hover:shadow-sm transition-all cursor-pointer h-full"
+                className="rounded-2xl border border-border bg-card p-5 sm:p-6 flex flex-col gap-4 hover:border-leaf/40 hover:shadow-sm transition-all cursor-pointer h-full"
               >
-                <div className="h-10 w-10 rounded-xl flex items-center justify-center
-                                bg-emerald-100 dark:bg-emerald-950/50
-                                text-emerald-600 dark:text-emerald-400 shrink-0">
+                <div className="h-10 w-10 rounded-xl flex items-center justify-center bg-leaf-soft text-leaf shrink-0">
                   <WhatsappIcon size={18} />
                 </div>
                 <div className="flex-1">
-                  <p className="text-[10px] uppercase tracking-widest font-semibold
-                                text-muted-foreground mb-1">WhatsApp</p>
-                  <p className="text-sm font-medium text-foreground">+62 812-XXXX-XXXX</p>
+                  <p className="text-[10px] uppercase tracking-widest font-semibold text-muted-foreground mb-1">WhatsApp</p>
+                  <p className="text-sm font-medium text-foreground">+62 812-7136-3702</p>
                   <p className="text-xs text-muted-foreground mt-1">Quick replies · usually &lt; 1 hour</p>
                 </div>
-                <span className="inline-flex items-center gap-1.5 text-xs font-semibold
-                                 text-emerald-600 dark:text-emerald-400
-                                 hover:text-emerald-500 dark:hover:text-emerald-300 transition-colors">
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-leaf hover:text-leaf transition-colors">
                   Chat Now <ExternalLink size={11} />
                 </span>
               </div>
@@ -224,14 +196,12 @@ export default function ContactPage() {
                 href={GOOGLE_MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-2xl border border-border bg-card overflow-hidden flex flex-col
-                           hover:border-slate-300 dark:hover:border-slate-600
-                           hover:shadow-sm transition-all group h-full"
+                className="rounded-2xl border border-border bg-card overflow-hidden flex flex-col hover:border-border hover:shadow-sm transition-all group h-full"
               >
                 {/* Mini map preview */}
-                <div className="relative h-28 bg-slate-100 dark:bg-slate-800 overflow-hidden shrink-0">
+                <div className="relative h-28 bg-surface overflow-hidden shrink-0">
                   {mounted && (
-                    <Image
+                    <ShimmerImage
                       src={theme === "dark" ? "/jakarta-map-dark.png" : "/jakarta-map-light.png"}
                       alt="Jakarta, Indonesia map"
                       fill
@@ -239,13 +209,8 @@ export default function ContactPage() {
                       sizes="(max-width: 640px) 100vw, 33vw"
                     />
                   )}
-                  <div className="absolute inset-0 flex items-center justify-center
-                                  bg-black/0 group-hover:bg-black/25 transition-all duration-300">
-                    <span className="flex items-center gap-1.5 rounded-full px-2.5 py-1
-                                     bg-white dark:bg-background text-foreground
-                                     text-[10px] font-medium shadow-md
-                                     translate-y-1 opacity-0 group-hover:translate-y-0
-                                     group-hover:opacity-100 transition-all duration-300">
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/25 transition-all duration-300">
+                    <span className="flex items-center gap-1.5 rounded-full px-2.5 py-1 bg-card text-foreground text-[10px] font-medium shadow-md translate-y-1 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                       <ExternalLink size={10} />
                       Open in Maps
                     </span>
@@ -254,7 +219,7 @@ export default function ContactPage() {
 
                 <div className="p-5 sm:p-6 flex flex-col gap-1 flex-1">
                   <div className="flex items-center gap-1.5">
-                    <MapPin size={12} className="text-blue-600 dark:text-blue-400 shrink-0" />
+                    <MapPin size={12} className="text-primary shrink-0" />
                     <p className="text-[10px] uppercase tracking-widest font-semibold text-muted-foreground">
                       Location
                     </p>
@@ -277,12 +242,10 @@ export default function ContactPage() {
 
               {/* Form header */}
               <div className="mb-6">
-                <span className="text-xs font-semibold uppercase tracking-widest
-                                 text-blue-600 dark:text-blue-400 font-mono mb-2 block">
+                <span className="text-xs font-semibold uppercase tracking-widest text-primary font-mono mb-2 block">
                   {/* // Initialize Connection */}
                 </span>
-                <h2 className="font-heading font-bold text-foreground
-                               text-xl sm:text-2xl md:text-3xl">
+                <h2 className="font-heading font-bold text-foreground text-xl sm:text-2xl md:text-3xl">
                   Send a Message
                 </h2>
                 <p className="mt-1.5 text-sm text-muted-foreground max-w-xl">
@@ -300,10 +263,8 @@ export default function ContactPage() {
                   animate={{ opacity: 1, scale: 1 }}
                   className="flex flex-col items-center justify-center gap-4 py-20 text-center"
                 >
-                  <div className="h-16 w-16 rounded-full bg-emerald-50 dark:bg-emerald-950/40
-                                  border border-emerald-200 dark:border-emerald-800/40
-                                  flex items-center justify-center">
-                    <CheckCircle size={32} className="text-emerald-500" />
+                  <div className="h-16 w-16 rounded-full bg-leaf-soft border border-leaf/40 flex items-center justify-center">
+                    <CheckCircle size={32} className="text-leaf" />
                   </div>
                   <div>
                     <h3 className="font-heading font-bold text-lg text-foreground">
@@ -315,9 +276,7 @@ export default function ContactPage() {
                   </div>
                   <button
                     onClick={reset}
-                    className="text-sm text-blue-600 dark:text-blue-400
-                               hover:text-blue-500 dark:hover:text-blue-300
-                               transition-colors font-medium"
+                    className="text-sm text-primary hover:text-primary transition-colors font-medium"
                   >
                     Send another message →
                   </button>
@@ -381,22 +340,15 @@ export default function ContactPage() {
                   </div>
 
                   {/* Actions */}
-                  <div className="flex flex-col sm:flex-row items-center gap-3
-                                  mt-8 pt-6 border-t border-border">
+                  <div className="flex flex-col sm:flex-row items-center gap-3 mt-8 pt-6 border-t border-border">
                     <button
                       type="submit"
                       disabled={status === "submitting"}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2
-                                 rounded-xl bg-blue-700 hover:bg-blue-600
-                                 px-8 py-3 text-sm font-semibold text-white
-                                 shadow-md shadow-blue-700/20
-                                 disabled:opacity-60 disabled:cursor-not-allowed
-                                 transition-all"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-primary hover:opacity-90 px-8 py-3 text-sm font-semibold text-primary-foreground shadow-md disabled:opacity-60 disabled:cursor-not-allowed transition-all"
                     >
                       {status === "submitting" ? (
                         <>
-                          <span className="h-4 w-4 rounded-full border-2 border-white/30
-                                           border-t-white animate-spin" />
+                          <span className="h-4 w-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
                           Sending…
                         </>
                       ) : (
@@ -410,14 +362,7 @@ export default function ContactPage() {
                     <button
                       type="button"
                       onClick={handleWhatsApp}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2
-                                 rounded-xl px-8 py-3 text-sm font-semibold
-                                 border border-emerald-400/40 dark:border-emerald-600/30
-                                 bg-emerald-50/60 dark:bg-emerald-950/20
-                                 text-emerald-700 dark:text-emerald-400
-                                 hover:bg-emerald-100 dark:hover:bg-emerald-950/40
-                                 hover:border-emerald-400 dark:hover:border-emerald-600/50
-                                 transition-all"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-8 py-3 text-sm font-semibold border border-leaf/40 bg-leaf-soft text-leaf hover:bg-leaf-soft hover:border-leaf/40 transition-all"
                     >
                       <WhatsappIcon size={15} />
                       WhatsApp Instead

@@ -42,11 +42,11 @@ beforeEach(() => {
 });
 
 describe("Footer", () => {
-  it("renders quick links, legal links and the current year", () => {
+  it("renders quick links and the current year", () => {
     render(<Footer />);
     expect(screen.getByRole("link", { name: "About" })).toHaveAttribute("href", "/about");
     expect(screen.getByRole("link", { name: "Projects" })).toHaveAttribute("href", "/projects");
-    expect(screen.getByRole("link", { name: "Privacy Policy" })).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "Privacy Policy" })).not.toBeInTheDocument();
     expect(screen.getByText(new RegExp(String(new Date().getFullYear())))).toBeInTheDocument();
   });
 
@@ -62,8 +62,8 @@ describe("Footer", () => {
   });
 
   it.each([
-    ["dark", "/logo-dark.png"],
-    ["light", "/logo-light.png"],
+    ["dark", "/logo-dark.webp"],
+    ["light", "/logo-light.webp"],
   ])("shows the %s logo after mount", (theme, src) => {
     themeState.theme = theme;
     render(<Footer />);

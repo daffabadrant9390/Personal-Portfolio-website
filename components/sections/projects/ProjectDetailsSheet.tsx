@@ -26,9 +26,7 @@ export function ProjectDetailsSheet({ project, onClose }: ProjectDetailsSheetPro
       maxWidthClass="max-w-xl"
       header={
         <>
-          <span className="mb-2 inline-block rounded-full border border-blue-200 dark:border-blue-900/40
-                           bg-blue-50 dark:bg-blue-950/20 px-2.5 py-0.5 text-[10px] font-semibold
-                           uppercase tracking-wide text-blue-700 dark:text-blue-300">
+          <span className="mb-2 inline-block rounded-full border border-border bg-accent px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
             {project.category}
           </span>
           <h3 className="font-heading text-xl font-bold text-foreground">{project.title}</h3>
@@ -43,10 +41,7 @@ export function ProjectDetailsSheet({ project, onClose }: ProjectDetailsSheetPro
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl
-                           border border-border bg-background px-4 py-2.5 text-sm font-semibold
-                           text-foreground hover:border-blue-300 dark:hover:border-blue-700
-                           hover:bg-blue-50 dark:hover:bg-blue-950/20 transition-all"
+                className="flex-1 inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-border bg-background px-4 py-2.5 text-sm font-semibold text-foreground hover:border-primary hover:bg-accent transition-all"
               >
                 <GithubIcon size={15} />
                 {githubLinks.length > 1 ? `${link.label} Code` : "View Code"}
@@ -57,9 +52,7 @@ export function ProjectDetailsSheet({ project, onClose }: ProjectDetailsSheetPro
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl
-                           bg-blue-700 hover:bg-blue-600 px-4 py-2.5 text-sm font-semibold
-                           text-white shadow-md shadow-blue-700/20 transition-all"
+                className="flex-1 inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl bg-primary hover:opacity-90 px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity"
               >
                 <ExternalLink size={15} />
                 Live Demo

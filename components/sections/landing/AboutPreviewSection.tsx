@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Container } from "@/components/shared/Container";
-import { experiences } from "@/lib/data/portfolio";
+import { getExperiences } from "@/lib/data/experience";
 import type { Experience } from "@/lib/types";
 
 function HighlightCard({ exp, muted = false }: { exp: Experience; muted?: boolean }) {
@@ -27,7 +27,8 @@ function HighlightCard({ exp, muted = false }: { exp: Experience; muted?: boolea
   );
 }
 
-export function AboutPreviewSection() {
+export async function AboutPreviewSection() {
+  const experiences = await getExperiences();
   const visible = ["kredivo", "tiket"]
     .map((id) => experiences.find((e) => e.id === id))
     .filter((e): e is Experience => Boolean(e));

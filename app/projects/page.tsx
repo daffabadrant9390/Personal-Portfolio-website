@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Container } from "@/components/shared/Container";
 import { ProjectsExplorer } from "@/components/sections/projects/ProjectsExplorer";
-import { projects } from "@/lib/data/portfolio";
+import { getProjects } from "@/lib/data/projects";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -17,7 +17,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ProjectsPage() {
+// Content comes from MySQL, so render per request instead of at build time
+// (CI and image builds have no database).
+export const dynamic = "force-dynamic";
+export default async function ProjectsPage() {
+  const projects = await getProjects();
+
   return (
     <main className="min-h-screen bg-background">
 

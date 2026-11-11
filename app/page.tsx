@@ -4,6 +4,9 @@ import { TechStackSection } from "@/components/sections/landing/TechStackSection
 import { FeaturedProjectsSection } from "@/components/sections/landing/FeaturedProjectsSection";
 import { ContactCTASection } from "@/components/sections/landing/ContactCTASection";
 
+// Featured projects and experience come from MySQL, so render per request.
+export const dynamic = "force-dynamic";
+
 export default function LandingPage() {
   return (
     <>

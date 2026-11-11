@@ -1,15 +1,11 @@
-import { assetUrl } from "@/lib/assets";
-import type {
-  Project,
-  Experience,
-  TechCategory,
-  SoftSkill,
-  EducationEntry,
-} from "@/lib/types";
-
-// Static portfolio content. Plain module (no "use client" / no store) so it can
-// be imported directly by Server Components without shipping the data as
-// hydrated client state.
+/**
+ * Seed source for the `projects` and `experience` tables. Only prisma/seed.ts
+ * imports this file; the site itself reads everything from MySQL.
+ *
+ * Image `src` values become R2 object keys (leading slash removed), so upload
+ * each file to the bucket under the same path.
+ */
+import type { Experience, Project } from "../lib/types";
 
 export const projects: Project[] = [
   {
@@ -18,40 +14,40 @@ export const projects: Project[] = [
     category: "Frontend",
     description:
       "Rebuilt the hotel and homes accommodation pages in Next.js and TypeScript for one of Indonesia's largest online travel marketplaces, with Lighthouse SEO above 90, LCP under 2.5 s and CLS under 0.1. Also delivered the post purchase flows (Reschedule, Refund, Revise Booking, Self Service Rebook and Relocation) and later moved them to server side rendering, cutting page load from about 8 s to 2 to 4 s.",
-    image: assetUrl("/assets/tiket/tiket-1.jpg"),
+    image: "/portfolio-projects/tiket-com/tiket-1.jpg",
     images: [
       {
-        src: assetUrl("/assets/tiket/tiket-1.jpg"),
+        src: "/portfolio-projects/tiket-com/tiket-1.jpg",
         alt: "Tiket.com Home Page for all products and services",
         caption: "Home Page for Hotels, Homes, Flights, and other services",
       },
       {
-        src: assetUrl("/assets/tiket/tiket-2.jpg"),
+        src: "/portfolio-projects/tiket-com/tiket-2.jpg",
         alt: "Tiket.com Accommodation Search Page with List of Hotels and Homes",
         caption: "Tiket.com Accommodation Search Page with List of Hotels and Homes",
       },
       {
-        src: assetUrl("/assets/tiket/tiket-3.jpg"),
+        src: "/portfolio-projects/tiket-com/tiket-3.jpg",
         alt: "Tiket.com Accommodation Hotel Detail Page with all Hotel Information and Booking Options",
         caption: "Accommodation Hotel Detail Page with all Hotel Information and Booking Options",
       },
       {
-        src: assetUrl("/assets/tiket/tiket-4.jpg"),
+        src: "/portfolio-projects/tiket-com/tiket-4.jpg",
         alt: "Tiket.com Accommodation Map Nearby POI for Hotels and Homes",
         caption: "Accommodation Map Nearby POI for Hotels and Homes",
       },
       {
-        src: assetUrl("/assets/tiket/tiket-5.jpg"),
+        src: "/portfolio-projects/tiket-com/tiket-5.jpg",
         alt: "Tiket.com Hotel Room Selection Section with all Room Options and Prices",
         caption: "Hotel Room Selection Section with all Room Options and Prices",
       },
       {
-        src: assetUrl("/assets/tiket/tiket-6.jpg"),
+        src: "/portfolio-projects/tiket-com/tiket-6.jpg",
         alt: "Tiket.com Hotel SEO Page List for all Cheap Hotels in Jakarta",
         caption: "Hotel SEO Page List for all Cheap Hotels in Jakarta",
       },
       {
-        src: assetUrl("/assets/tiket/tiket-7.jpg"),
+        src: "/portfolio-projects/tiket-com/tiket-7.jpg",
         alt: "Tiket.com Hotel SEO Most Favorite Hotels Page for Jakarta",
         caption: "Hotel SEO Most Favorite Hotels Page for Jakarta",
       },
@@ -67,11 +63,11 @@ export const projects: Project[] = [
     description:
       "Architected a Chrome extension AI assistant for real time stock and Web3 chart analysis, published on the Chrome Web Store. Claude's API is the core feature, turning chart screenshots and questions into trend analysis, with a designed system prompt and context enrichment. Owned Google Auth, Stripe payments and PostHog analytics for the full onboarding to payment journey, and led a 3 person team.",
     image:
-      assetUrl("/assets/prism/prism-1.jpg"),
+      "/portfolio-projects/prism/prism-1.jpg",
     images: [
-      { src: assetUrl("/assets/prism/prism-1.jpg"), alt: "Prism AI trading assistant dashboard overview" },
-      { src: assetUrl("/assets/prism/prism-2.jpg"), alt: "Prism trading chart analysis view" },
-      { src: assetUrl("/assets/prism/prism-3.jpg"), alt: "Prism onboarding and payments flow" },
+      { src: "/portfolio-projects/prism/prism-1.jpg", alt: "Prism AI trading assistant dashboard overview" },
+      { src: "/portfolio-projects/prism/prism-2.jpg", alt: "Prism trading chart analysis view" },
+      { src: "/portfolio-projects/prism/prism-3.jpg", alt: "Prism onboarding and payments flow" },
     ],
     tags: ["Claude AI", "React.js", "TypeScript", "Firebase", "Supabase", "Stripe", "PostHog", "Tailwind CSS", "Chrome Extension"],
     githubUrl: [
@@ -87,15 +83,15 @@ export const projects: Project[] = [
     description:
       "Architected and shipped pergiceria.com in Golang, Next.js and MySQL, a booking platform for local and international tours with B2C self service and B2B manual orders. Xendit covers 8+ payment channels, Resend and Twilio send notifications, and Mekari Qontak powers CRM and AI for WhatsApp conversations. 20+ transactions worth over IDR 50 million (about USD 2,700) since the August 2026 launch, with 90+ Lighthouse and PageSpeed scores.",
     image:
-      assetUrl("/assets/pergi-ceria/pct-1.jpg"),
+      "/portfolio-projects/pergi-ceria-travel/pct-1.jpg",
     images: [
-      { src: assetUrl("/assets/pergi-ceria/pct-1.jpg"), alt: "Pergi Ceria tour and event booking landing page" },
-      { src: assetUrl("/assets/pergi-ceria/pct-2.jpg"), alt: "Pergi Ceria tour detail and initial booking flow page" },
-      { src: assetUrl("/assets/pergi-ceria/pct-3.jpg"), alt: "Pergi Ceria tour detail, itinerary, and booking information (departure options, pricing, and counter passenger)" },
-      { src: assetUrl("/assets/pergi-ceria/pct-4.jpg"), alt: "Pergi Ceria Awaiting Payment Page" },
-      { src: assetUrl("/assets/pergi-ceria/pct-5.jpg"), alt: "Order List Information Page (filtered by status)" },
-      { src: assetUrl("/assets/pergi-ceria/pct-6.jpg"), alt: "Pergi Ceria Email After Payment Success" },
-      { src: assetUrl("/assets/pergi-ceria/pct-7.jpg"), alt: "Pergi Ceria Dashboard to handle tours, reports, transaction histories and manual orders management" },
+      { src: "/portfolio-projects/pergi-ceria-travel/pct-1.jpg", alt: "Pergi Ceria tour and event booking landing page" },
+      { src: "/portfolio-projects/pergi-ceria-travel/pct-2.jpg", alt: "Pergi Ceria tour detail and initial booking flow page" },
+      { src: "/portfolio-projects/pergi-ceria-travel/pct-3.jpg", alt: "Pergi Ceria tour detail, itinerary, and booking information (departure options, pricing, and counter passenger)" },
+      { src: "/portfolio-projects/pergi-ceria-travel/pct-4.jpg", alt: "Pergi Ceria Awaiting Payment Page" },
+      { src: "/portfolio-projects/pergi-ceria-travel/pct-5.jpg", alt: "Order List Information Page (filtered by status)" },
+      { src: "/portfolio-projects/pergi-ceria-travel/pct-6.jpg", alt: "Pergi Ceria Email After Payment Success" },
+      { src: "/portfolio-projects/pergi-ceria-travel/pct-7.jpg", alt: "Pergi Ceria Dashboard to handle tours, reports, transaction histories and manual orders management" },
     ],
     tags: [
       "Next.js",
@@ -113,7 +109,10 @@ export const projects: Project[] = [
       "SEO",
       "PageSpeed",
     ],
-    githubUrl: [],
+    githubUrl: [
+      { label: "FE", url: "https://github.com/pergiceria2026-comp/Pergi-Ceria-Client" },
+      { label: "BE", url: "https://github.com/pergiceria2026-comp/Pergi-Ceria-Server" },
+    ],
     liveUrl: "https://pergiceria.com",
   },
   {
@@ -123,15 +122,15 @@ export const projects: Project[] = [
     description:
       "Engineered a white label game voucher marketplace engine now powering 4 live storefronts, integrating third-party provider catalogs across 20+ active games from landing and SEO pages to a streamlined buy flow where users pick a game, choose a voucher amount, and pay through our in house payment gateway. Built a dashboard with daily reporting and transaction history, RBAC, and a dynamic CMS for content teams, while sustaining 90%+ unit test coverage (frontend and backend), 90+ green PageSpeed scores on mobile & desktop, and full observability across logs, latency, and server health.",
     image:
-      assetUrl("/assets/tokoneo/tokoneo-landing.jpg"),
+      "/portfolio-projects/tokoneo/tokoneo-landing.jpg",
     images: [
-      { src: assetUrl("/assets/tokoneo/tokoneo-landing.jpg"), alt: "Tokoneo landing page banner" },
-      { src: assetUrl("/assets/tokoneo/tokoneo-1.jpg"), alt: "TokoNeo Landing Page" },
-      { src: assetUrl("/assets/tokoneo/tokoneo-2.jpg"), alt: "TokoNeo Dashboard Reports and CMS Contents" },
-      { src: assetUrl("/assets/tokoneo/tokoneo-3.jpg"), alt: "TokoNeo Voucher Game Detail Page" },
-      { src: assetUrl("/assets/tokoneo/tokoneo-4.jpg"), alt: "SEO Section for Specific Voucher Game" },
-      { src: assetUrl("/assets/tokoneo/tokoneo-5.jpg"), alt: "SEO Section in Landing Page - 1" },
-      { src: assetUrl("/assets/tokoneo/tokoneo-6.jpg"), alt: "SEO Section in Landing Page - 2" },
+      { src: "/portfolio-projects/tokoneo/tokoneo-landing.jpg", alt: "Tokoneo landing page banner" },
+      { src: "/portfolio-projects/tokoneo/tokoneo-1.jpg", alt: "TokoNeo Landing Page" },
+      { src: "/portfolio-projects/tokoneo/tokoneo-2.jpg", alt: "TokoNeo Dashboard Reports and CMS Contents" },
+      { src: "/portfolio-projects/tokoneo/tokoneo-3.jpg", alt: "TokoNeo Voucher Game Detail Page" },
+      { src: "/portfolio-projects/tokoneo/tokoneo-4.jpg", alt: "SEO Section for Specific Voucher Game" },
+      { src: "/portfolio-projects/tokoneo/tokoneo-5.jpg", alt: "SEO Section in Landing Page - 1" },
+      { src: "/portfolio-projects/tokoneo/tokoneo-6.jpg", alt: "SEO Section in Landing Page - 2" },
     ],
     tags: [
       "Laravel",
@@ -145,6 +144,81 @@ export const projects: Project[] = [
     ],
     githubUrl: [],
     liveUrl: "https://www.tokoneo.id/",
+  },
+  {
+    id: "7",
+    title: "Pempek Takuw Pre Order Website",
+    category: "Frontend",
+    description:
+      "Built and launched the website for Pempek Takuw, my own Pre Order food business for authentic Pempek Palembang that opened on 10 November 2026. It is a simple static site in Indonesian and English with a product catalogue, clear pricing, ordering terms, bonus cuko tiers by order size and real packaging photos. Orders are handled manually through WhatsApp, so customers go from browsing the menu to chatting with the seller in one tap, with no backend to maintain.",
+    image: "/portfolio-projects/pempek-takuw/pempek-takuw-1.jpg",
+    images: [
+      {
+        src: "/portfolio-projects/pempek-takuw/pempek-takuw-1.jpg",
+        alt: "Pempek Takuw landing page hero with the Open Pre-Order badge and WhatsApp order button",
+        caption: "Landing page hero with a direct WhatsApp order button",
+      },
+      {
+        src: "/portfolio-projects/pempek-takuw/pempek-takuw-2.jpg",
+        alt: "Pempek Takuw menu with five small pempek varieties, Kapal Selam and Lenjer Besar with prices",
+        caption: "Menu catalogue with small pempek, Kapal Selam and Lenjer Besar",
+      },
+      {
+        src: "/portfolio-projects/pempek-takuw/pempek-takuw-3.jpg",
+        alt: "Pempek Takuw ordering terms and free cuko bonus by order size",
+        caption: "Ordering terms and free cuko bonus by order size",
+      },
+      {
+        src: "/portfolio-projects/pempek-takuw/pempek-takuw-4.jpg",
+        alt: "Pempek Takuw order preview carousel with real vacuum packed pempek and a packaging example",
+        caption: "Order preview with real product and packaging photos",
+      },
+      {
+        src: "/portfolio-projects/pempek-takuw/pempek-takuw-5.jpg",
+        alt: "Pempek Takuw mobile layout showing the hero, menu and ordering terms",
+        caption: "Mobile layout with the hero, menu and ordering terms",
+      },
+    ],
+    tags: ["Next.js", "Vercel", "WhatsApp Ordering", "Bilingual ID and EN", "Responsive Design"],
+    githubUrl: [
+      { label: "FE", url: "https://github.com/daffabadrant9390/Pempek-Takuw-Selling" },
+    ],
+    liveUrl: "https://pempek-takuw-selling.vercel.app/id/",
+  },
+  {
+    id: "8",
+    title: "CiptaForge, 3D Workspace Rental Designer",
+    category: "Full Stack",
+    description:
+      "Built an interactive 3D workspace designer where people rent desks, chairs, monitors and accessories by the week instead of buying them. Instead of a normal product grid, users place catalogue items in a real 3D room, move and rotate them, and watch the weekly price, bundle discount and total update live, with weekly or monthly billing and USD or IDR. An Ask AI assistant turns a plain description such as \"I am a CEO of a software house\" into a suggested setup with an estimated cost that can be added to the room in one click, with quick start presets for Freelance Developer, Day Trader and Content Creator. Setups can be saved, shared by link and sent by email with the estimate. Responsive from desktop to mobile, with light and dark themes.",
+    image: "/portfolio-projects/cipta-forge/ciptaforge-1.jpg",
+    images: [
+      {
+        src: "/portfolio-projects/cipta-forge/ciptaforge-1.jpg",
+        alt: "CiptaForge landing page with the headline Design your workspace before a single desk shows up and a 3D desk preview",
+        caption: "Landing page with a live 3D preview of a rented desk setup",
+      },
+      {
+        src: "/portfolio-projects/cipta-forge/ciptaforge-2.jpg",
+        alt: "CiptaForge designer with a catalogue on the left, a 3D room in the center and a live priced setup on the right in IDR",
+        caption: "Designer with catalogue, 3D room and a live priced setup in IDR",
+      },
+      {
+        src: "/portfolio-projects/cipta-forge/ciptaforge-3.jpg",
+        alt: "CiptaForge Ask AI dialog where a user describes how they work to get a suggested setup",
+        caption: "Ask AI dialog that turns a description into a suggested setup",
+      },
+      {
+        src: "/portfolio-projects/cipta-forge/ciptaforge-4.jpg",
+        alt: "CiptaForge mobile layout showing the landing page, the 3D room and the setup price summary",
+        caption: "Mobile layout with the 3D room and a bottom sheet price summary",
+      },
+    ],
+    tags: ["Next.js", "3D WebGL", "Vercel", "AI Suggestions", "Resend", "Responsive Design"],
+    githubUrl: [
+      { label: "Github", url: "https://github.com/daffabadrant9390/interactive-workspace-design-tool" },
+    ],
+    liveUrl: "https://interactive-workspace-design-tool.vercel.app/",
   },
   // {
   //   id: "5",
@@ -182,9 +256,6 @@ export const projects: Project[] = [
   // },
 ];
 
-
-// Experience is split in two groups so the full time career reads on its own,
-// separate from contract, part time and community work. Source: resume master.
 export const experiences: Experience[] = [
   // ───────────── Full time ─────────────
   {
@@ -329,119 +400,3 @@ export const experiences: Experience[] = [
     tags: ["Claude API", "React.js", "TypeScript", "Firebase", "Supabase", "Stripe", "PostHog"],
   },
 ];
-
-export const techCategories: TechCategory[] = [
-  {
-    label: "Frontend and Design",
-    items: [
-      { name: "React.js", icon: "react" },
-      { name: "Next.js", icon: "nextjs" },
-      { name: "TypeScript", icon: "typescript" },
-      { name: "Tailwind CSS", icon: "tailwindcss" },
-      { name: "Figma", icon: "figma" },
-    ],
-    more: ["Responsive Design", "Web Performance", "SEO", "UI/UX Design", "Unit Testing"],
-  },
-  {
-    label: "Backend and Data",
-    items: [
-      { name: "Golang", icon: "golang" },
-      { name: "Node.js", icon: "nodejs" },
-      { name: "Express.js", icon: "expressjs" },
-      { name: "Kafka", icon: "kafka" },
-      { name: "MySQL", icon: "mysql" },
-      { name: "BigQuery", icon: "bigquery" },
-      { name: "Firebase", icon: "firebase" },
-      { name: "Supabase", icon: "supabase" },
-    ],
-    more: ["REST API Design", "Event Driven Architecture"],
-  },
-  {
-    label: "Cloud, Monitoring and Payments",
-    items: [
-      { name: "Google Cloud", icon: "googlecloud" },
-      { name: "Datadog", icon: "datadog" },
-      { name: "Kibana", icon: "kibana" },
-      { name: "Grafana", icon: "grafana" },
-      { name: "Stripe", icon: "stripe" },
-      { name: "Xendit", icon: "xendit" },
-    ],
-    more: ["Scalyr"],
-  },
-  {
-    label: "AI and LLM Applications",
-    items: [
-      { name: "Claude API", icon: "anthropic" },
-      { name: "Claude Code", icon: "claude" },
-      { name: "GitHub Copilot", icon: "githubcopilot" },
-      { name: "Cursor", icon: "cursor" },
-      { name: "MCP", icon: "mcp" },
-    ],
-    more: [
-      "Prompt Engineering",
-      "LLM Application Development",
-      "Agentic AI (OpenClaw, Hermes Agent)",
-      "CRM and WhatsApp Integration (Mekari Qontak)",
-    ],
-  },
-];
-
-/** Topics being learned right now, shown as a short note under the skills. */
-export const currentlyBuilding = ["AI Agents", "Structured Outputs", "RAG"];
-
-export const softSkills: SoftSkill[] = [
-  {
-    title: "Technical leadership",
-    evidence:
-      "Led teams of 3 at Pergi Ceria Tour and Jet Studio, and raised sprint completion from 2 of 5 planned tasks to all 5.",
-  },
-  {
-    title: "Product management",
-    evidence:
-      "Wrote 8 PRDs covering user flows, UI mockups and API contracts, and ran research, timelines, UAT and deployment.",
-  },
-  {
-    title: "Mentoring",
-    evidence:
-      "Mentored 200+ bootcamp students across 10+ batches, averaging 4.75+/5 from learners.",
-  },
-  {
-    title: "Code review and standards",
-    evidence:
-      "Led code and design reviews at tiket.com and introduced review workflows on distributed teams.",
-  },
-  {
-    title: "Public speaking",
-    evidence:
-      "Judge and speaker at the Fydemy BitBash Hackathon, speaker at the UIUXINDO Product Design Festival, and host of community tech sharing sessions.",
-  },
-  {
-    title: "Technical documentation",
-    evidence:
-      "Wrote a 10 page flow specification, PRDs and shared prompting guides that teams used for onboarding and maintenance.",
-  },
-  {
-    title: "Working across teams",
-    evidence:
-      "Delivered with stakeholders from 7 teams at Kredivo, regional teams in 4 countries, and L&D and class managers at Dibimbing.",
-  },
-];
-
-export const education: EducationEntry[] = [
-  {
-    school: "Universitas Sriwijaya",
-    degree: "B.S. Computer Science",
-    period: "Aug 2018 to Jun 2022",
-    note: "GPA 3.74 / 4.00",
-  },
-];
-
-/** Facts reused across the hero, about preview and about page. All come from the resume. */
-export const profileFacts = {
-  yearsExperience: "4.5+",
-  studentsMentored: "200+",
-  countriesServed: "4",
-  languages: "Indonesian (native), English (native level)",
-};
-
-export const RESUME_HREF = "/M_Daffa_Badran_Thoriq_Resume.pdf";

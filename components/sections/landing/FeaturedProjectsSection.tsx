@@ -3,7 +3,7 @@ import { ExternalLink, ArrowRight } from "lucide-react";
 import { GithubIcon } from "@/components/shared/BrandIcons";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Container } from "@/components/shared/Container";
-import { projects } from "@/lib/data/portfolio";
+import { getProjects } from "@/lib/data/projects";
 import type { Project } from "@/lib/types";
 import { ShimmerImage } from "@/components/shared/ShimmerImage";
 
@@ -122,7 +122,8 @@ function MarqueeRow({
   );
 }
 
-export function FeaturedProjectsSection() {
+export async function FeaturedProjectsSection() {
+  const projects = await getProjects();
   const row1 = projects.filter((_, i) => i % 2 === 0);
   const row2 = projects.filter((_, i) => i % 2 === 1);
 

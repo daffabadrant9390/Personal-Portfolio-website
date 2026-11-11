@@ -7,7 +7,9 @@ import { ExperienceCard } from "@/components/sections/about/ExperienceCard";
 import { SkillGroups } from "@/components/sections/skills/SkillGroups";
 import { SoftSkills } from "@/components/sections/skills/SoftSkills";
 import { ContactCTASection } from "@/components/sections/landing/ContactCTASection";
-import { education, experiences, profileFacts } from "@/lib/data/portfolio";
+import { education, profileFacts } from "@/lib/data/portfolio";
+import { getExperiences } from "@/lib/data/experience";
+import type { Experience } from "@/lib/types";
 
 const DESCRIPTION =
   "Full Stack Software Engineer in Jakarta with 4.5+ years across fintech, travel and AI. Full time experience at Kredivo Group and tiket.com, plus contract, part time and community work.";
@@ -23,8 +25,9 @@ export const metadata: Metadata = {
   },
 };
 
-const fullTime = experiences.filter((e) => e.group === "full-time");
-const nonFullTime = experiences.filter((e) => e.group === "non-full-time");
+// Content comes from MySQL, so render per request instead of at build time
+// (CI and image builds have no database).
+export const dynamic = "force-dynamic";
 
 function GroupHeading({ id, title, note, count }: { id: string; title: string; note: string; count: number }) {
   return (
@@ -37,7 +40,7 @@ function GroupHeading({ id, title, note, count }: { id: string; title: string; n
   );
 }
 
-function Timeline({ items }: { items: typeof experiences }) {
+function Timeline({ items }: { items: Experience[] }) {
   return (
     <div className="relative">
       <div className="absolute left-[11px] top-3 bottom-3 w-0.5 bg-border" aria-hidden="true" />
@@ -62,7 +65,11 @@ function Timeline({ items }: { items: typeof experiences }) {
   );
 }
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const experiences = await getExperiences();
+  const fullTime = experiences.filter((e) => e.group === "full-time");
+  const nonFullTime = experiences.filter((e) => e.group === "non-full-time");
+
   return (
     <>
       <AboutHero />

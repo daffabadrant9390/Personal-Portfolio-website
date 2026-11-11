@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { act, fireEvent, render, screen } from "@testing-library/react";
+import { aboutPhotos } from "@/lib/data/aboutPhotos";
 import { AboutHeroCarousel } from "./AboutHeroCarousel";
 
 function mockMatchMedia(desktop: boolean, reduced = false) {
@@ -27,7 +28,7 @@ describe("AboutHeroCarousel", () => {
     mockMatchMedia(true);
     render(<AboutHeroCarousel />);
     const slides = Array.from(document.querySelectorAll("[aria-roledescription=\"slide\"]"));
-    expect(slides).toHaveLength(6);
+    expect(slides).toHaveLength(aboutPhotos.length);
     expect(slides.filter((s) => s.getAttribute("aria-hidden") === "false")).toHaveLength(1);
   });
 
@@ -82,7 +83,7 @@ describe("AboutHeroCarousel", () => {
   it("jumps to a photo when its bullet is clicked", () => {
     mockMatchMedia(false);
     render(<AboutHeroCarousel />);
-    fireEvent.click(screen.getByRole("button", { name: "Show photo 4 of 6" }));
+    fireEvent.click(screen.getByRole("button", { name: `Show photo 4 of ${aboutPhotos.length}` }));
     expect(activeBullet()).toBe(3);
   });
 });

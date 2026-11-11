@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { aboutPhotos } from "@/lib/data/aboutPhotos";
 import { AboutGallery } from "./AboutGallery";
 
 beforeAll(() => {
@@ -18,7 +19,7 @@ describe("AboutGallery", () => {
     render(<AboutGallery />);
     expect(screen.getByRole("region", { name: /scroll sideways/i })).toBeInTheDocument();
     const photos = screen.getAllByRole("img");
-    expect(photos).toHaveLength(6);
+    expect(photos).toHaveLength(aboutPhotos.length);
     expect(decodeURIComponent(photos[0].getAttribute("src") ?? "")).toContain("about-us-carousel-2.jpeg");
   });
 

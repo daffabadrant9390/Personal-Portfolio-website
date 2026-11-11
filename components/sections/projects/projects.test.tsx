@@ -8,6 +8,11 @@ import type { Project } from "@/lib/types";
 
 vi.mock("framer-motion", () => import("@/test-utils/framer-motion-mock"));
 
+// jsdom has no ResizeObserver; the sort sheet runs as the mobile bottom sheet.
+vi.mock("@/lib/hooks/useBreakpoint", () => ({
+  useBreakpoint: () => ({ isMobile: true, isDesktop: false, currentScreenWidth: 375 }),
+}));
+
 vi.mock("@/components/sections/projects/ProjectCard", () => ({
   ProjectCard: ({
     project,
@@ -130,13 +135,13 @@ describe("ProjectFilters", () => {
 
   it("highlights the active category chip", () => {
     render(<ProjectFilters {...baseProps} activeCategory="Frontend" />);
-    expect(screen.getByRole("button", { name: "Frontend" }).className).toContain("bg-blue-600");
-    expect(screen.getByRole("button", { name: "All" }).className).not.toContain("bg-blue-600");
+    expect(screen.getByRole("button", { name: "Frontend" }).className).toContain("bg-primary");
+    expect(screen.getByRole("button", { name: "All" }).className).not.toContain("bg-primary");
   });
 
   it("highlights All when no category is active", () => {
     render(<ProjectFilters {...baseProps} />);
-    expect(screen.getByRole("button", { name: "All" }).className).toContain("bg-blue-600");
+    expect(screen.getByRole("button", { name: "All" }).className).toContain("bg-primary");
   });
 
   it("forwards sort changes and ignores empty values", () => {
@@ -150,6 +155,70 @@ describe("ProjectFilters", () => {
     onSortChange.mockClear();
     fireEvent.change(select, { target: { value: "" } });
     expect(onSortChange).not.toHaveBeenCalled();
+  });
+});
+
+describe("ProjectFilters mobile sort sheet", () => {
+  const props = {
+    search: "",
+    onSearchChange: vi.fn(),
+    categories: ["Frontend"],
+    activeCategory: null as string | null,
+    onCategoryChange: vi.fn(),
+    sortOrder: "none" as "none" | "asc" | "desc",
+    onSortChange: vi.fn(),
+  };
+
+  it("opens a bottom sheet from the icon button instead of a dropdown", async () => {
+    const user = userEvent.setup();
+    render(<ProjectFilters {...props} />);
+    expect(screen.queryByRole("dialog")).toBeNull();
+
+    await user.click(screen.getByRole("button", { name: "Sort projects" }));
+    const dialog = screen.getByRole("dialog", { name: "Sort projects" });
+    expect(dialog).toBeInTheDocument();
+    expect(screen.getAllByRole("radio")).toHaveLength(3);
+  });
+
+  it("applies the chosen sort only when Apply is pressed", async () => {
+    const onSortChange = vi.fn();
+    const user = userEvent.setup();
+    render(<ProjectFilters {...props} onSortChange={onSortChange} />);
+
+    await user.click(screen.getByRole("button", { name: "Sort projects" }));
+    await user.click(screen.getByRole("radio", { name: /A → Z/ }));
+    expect(onSortChange).not.toHaveBeenCalled();
+
+    await user.click(screen.getByRole("button", { name: "Apply" }));
+    expect(onSortChange).toHaveBeenCalledWith("asc");
+    expect(screen.queryByRole("dialog")).toBeNull();
+  });
+
+  it("discards the draft when the X button cancels", async () => {
+    const onSortChange = vi.fn();
+    const user = userEvent.setup();
+    render(<ProjectFilters {...props} onSortChange={onSortChange} />);
+
+    await user.click(screen.getByRole("button", { name: "Sort projects" }));
+    await user.click(screen.getByRole("radio", { name: /Z → A/ }));
+    await user.click(screen.getByRole("button", { name: "Cancel" }));
+
+    expect(onSortChange).not.toHaveBeenCalled();
+    expect(screen.queryByRole("dialog")).toBeNull();
+  });
+
+  it("starts from the current sort each time and marks an active sort on the icon", async () => {
+    const user = userEvent.setup();
+    render(<ProjectFilters {...props} sortOrder="desc" />);
+    expect(screen.getByTestId("sort-active-dot")).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Sort projects" }));
+    expect(screen.getByRole("radio", { name: /Z → A/ })).toHaveAttribute("aria-checked", "true");
+  });
+
+  it("has no active dot for the default sort", () => {
+    render(<ProjectFilters {...props} />);
+    expect(screen.queryByTestId("sort-active-dot")).toBeNull();
   });
 });
 

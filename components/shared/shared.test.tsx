@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { Container } from "@/components/shared/Container";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
@@ -97,5 +97,62 @@ describe("ThemeProvider", () => {
       </ThemeProvider>
     );
     expect(screen.getByText("themed")).toBeInTheDocument();
+  });
+});
+
+describe("ShimmerImage", () => {
+  it("shows a shimmer until the image loads, then removes it", async () => {
+    const { ShimmerImage } = await import("./ShimmerImage");
+    render(
+      <div style={{ position: "relative" }}>
+        <ShimmerImage src="/photo.jpg" alt="A photo" fill sizes="100px" />
+      </div>
+    );
+    expect(screen.getByTestId("image-shimmer")).toBeInTheDocument();
+    fireEvent.load(screen.getByAltText("A photo"));
+    // next/image reports the load asynchronously (after the image decodes).
+    await waitFor(() =>
+      expect(screen.queryByTestId("image-shimmer")).not.toBeInTheDocument()
+    );
+  });
+
+  it("retries a failed remote image straight from its own URL before giving up", async () => {
+    const { ShimmerImage } = await import("./ShimmerImage");
+    render(
+      <div style={{ position: "relative" }}>
+        <ShimmerImage src="https://assets.example.com/a.jpg" alt="Remote photo" fill sizes="100px" />
+      </div>
+    );
+    const img = screen.getByAltText("Remote photo");
+    expect(img.getAttribute("src")).toContain("/_next/image");
+    fireEvent.error(img);
+    const retried = screen.getByAltText("Remote photo");
+    expect(retried.getAttribute("src")).toBe("https://assets.example.com/a.jpg");
+    expect(screen.getByTestId("image-shimmer")).toBeInTheDocument();
+    fireEvent.error(retried);
+    expect(screen.getByRole("img", { name: "Remote photo" }).tagName).toBe("DIV");
+  });
+
+  it("shows a placeholder instead of a broken image when loading fails", async () => {
+    const { ShimmerImage } = await import("./ShimmerImage");
+    render(
+      <div style={{ position: "relative" }}>
+        <ShimmerImage src="/missing.jpg" alt="Missing photo" fill sizes="100px" />
+      </div>
+    );
+    fireEvent.error(screen.getByAltText("Missing photo"));
+    expect(screen.queryByTestId("image-shimmer")).not.toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "Missing photo" })).toBeInTheDocument();
+  });
+});
+
+describe("Skeleton", () => {
+  it("renders a hidden shimmering block with the given classes", async () => {
+    const { Skeleton } = await import("@/components/ui/skeleton");
+    const { container } = render(<Skeleton className="h-4 w-40" />);
+    const el = container.firstElementChild as HTMLElement;
+    expect(el).toHaveAttribute("aria-hidden", "true");
+    expect(el.className).toContain("shimmer");
+    expect(el.className).toContain("h-4");
   });
 });

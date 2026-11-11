@@ -17,9 +17,8 @@ export function ErrorFeedback({ open, title = "Please fix the highlighted fields
     <ResponsiveOverlay open={open} onClose={onClose} ariaLabel={title} maxWidthClass="max-w-sm">
       <div className="flex items-start justify-between gap-3 mb-4">
         <div className="flex items-center gap-2.5">
-          <div className="h-9 w-9 rounded-full shrink-0 flex items-center justify-center
-                          bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800/40">
-            <AlertCircle size={18} className="text-red-500" />
+          <div className="h-9 w-9 rounded-full shrink-0 flex items-center justify-center bg-destructive/10 border border-destructive/40">
+            <AlertCircle size={18} className="text-destructive" />
           </div>
           <h3 className="font-heading font-bold text-base text-foreground">{title}</h3>
         </div>
@@ -35,7 +34,7 @@ export function ErrorFeedback({ open, title = "Please fix the highlighted fields
       <ul className="space-y-2 mb-5">
         {errors.map((err, i) => (
           <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-            <span className="mt-1.5 h-1 w-1 rounded-full bg-red-500 shrink-0" />
+            <span className="mt-1.5 h-1 w-1 rounded-full bg-destructive/10 shrink-0" />
             {err}
           </li>
         ))}
@@ -43,8 +42,7 @@ export function ErrorFeedback({ open, title = "Please fix the highlighted fields
 
       <button
         onClick={onClose}
-        className="w-full rounded-xl bg-blue-700 hover:bg-blue-600 px-4 py-2.5
-                   text-sm font-semibold text-white transition-all"
+        className="w-full rounded-xl bg-primary hover:opacity-90 px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-all"
       >
         Got it
       </button>

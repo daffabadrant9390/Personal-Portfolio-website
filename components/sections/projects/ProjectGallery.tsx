@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ShimmerImage } from "@/components/shared/ShimmerImage";
 import type { ProjectImage } from "@/lib/types";
 
 interface ProjectGalleryProps {
@@ -30,7 +30,7 @@ export function ProjectGallery({ images, heightClass = "h-44" }: ProjectGalleryP
           transition={{ duration: 0.25 }}
           className="absolute inset-0"
         >
-          <Image
+          <ShimmerImage
             src={current.src}
             alt={current.alt}
             fill
@@ -53,10 +53,7 @@ export function ProjectGallery({ images, heightClass = "h-44" }: ProjectGalleryP
             type="button"
             onClick={(e) => { e.stopPropagation(); go(-1); }}
             aria-label="Previous image"
-            className="absolute left-2 top-1/2 z-10 -translate-y-1/2
-                       flex h-7 w-7 cursor-pointer items-center justify-center rounded-full
-                       bg-black/40 text-white transition-opacity hover:bg-black/60
-                       opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
+            className="absolute left-2 top-1/2 z-10 -translate-y-1/2 flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-black/40 text-white transition-opacity hover:bg-black/60 opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
           >
             <ChevronLeft size={14} />
           </button>
@@ -64,10 +61,7 @@ export function ProjectGallery({ images, heightClass = "h-44" }: ProjectGalleryP
             type="button"
             onClick={(e) => { e.stopPropagation(); go(1); }}
             aria-label="Next image"
-            className="absolute right-2 top-1/2 z-10 -translate-y-1/2
-                       flex h-7 w-7 cursor-pointer items-center justify-center rounded-full
-                       bg-black/40 text-white transition-opacity hover:bg-black/60
-                       opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
+            className="absolute right-2 top-1/2 z-10 -translate-y-1/2 flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-black/40 text-white transition-opacity hover:bg-black/60 opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
           >
             <ChevronRight size={14} />
           </button>

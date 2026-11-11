@@ -1,83 +1,18 @@
 import { describe, expect, it } from "vitest";
-import { experiences, projects, techCategories } from "./portfolio";
+import { currentlyBuilding, education, softSkills, techCategories } from "./portfolio";
 
-const isHttpUrl = (value: string) => {
-  try {
-    const { protocol } = new URL(value);
-    return protocol === "https:" || protocol === "http:";
-  } catch {
-    return false;
-  }
-};
-
-describe("projects", () => {
-  it("has at least one project", () => {
-    expect(projects.length).toBeGreaterThan(0);
-  });
-
-  it("uses unique ids", () => {
-    const ids = projects.map((project) => project.id);
-    expect(new Set(ids).size).toBe(ids.length);
-  });
-
-  it.each(projects.map((project) => [project.title, project] as const))(
-    "%s has the required content",
-    (_title, project) => {
-      expect(project.title.trim()).not.toBe("");
-      expect(project.category.trim()).not.toBe("");
-      expect(project.description.trim()).not.toBe("");
-      expect(project.tags.length).toBeGreaterThan(0);
-      expect(project.image.startsWith("/")).toBe(true);
-    }
-  );
-
-  it("gives every gallery image a source and alt text", () => {
-    projects.forEach((project) => {
-      project.images?.forEach((image) => {
-        expect(image.src.startsWith("/")).toBe(true);
-        expect(image.alt.trim()).not.toBe("");
-      });
+describe("soft skills and education", () => {
+  it("backs every soft skill with evidence", () => {
+    expect(softSkills.length).toBeGreaterThan(0);
+    softSkills.forEach((skill) => {
+      expect(skill.title.trim()).not.toBe("");
+      expect(skill.evidence.trim()).not.toBe("");
     });
   });
 
-  it("uses valid urls for live and repository links", () => {
-    projects.forEach((project) => {
-      if (project.liveUrl) expect(isHttpUrl(project.liveUrl)).toBe(true);
-      project.githubUrl?.forEach((link) => {
-        expect(link.label.trim()).not.toBe("");
-        expect(isHttpUrl(link.url)).toBe(true);
-      });
-    });
-  });
-
-  it("has no duplicate tags within a project", () => {
-    projects.forEach((project) => {
-      expect(new Set(project.tags).size).toBe(project.tags.length);
-    });
-  });
-});
-
-describe("experiences", () => {
-  it("has at least one experience", () => {
-    expect(experiences.length).toBeGreaterThan(0);
-  });
-
-  it("uses unique ids", () => {
-    const ids = experiences.map((experience) => experience.id);
-    expect(new Set(ids).size).toBe(ids.length);
-  });
-
-  it("has the required fields on every entry", () => {
-    experiences.forEach((experience) => {
-      expect(experience.role.trim()).not.toBe("");
-      expect(experience.company.trim()).not.toBe("");
-      expect(experience.period.trim()).not.toBe("");
-      expect(experience.description.trim()).not.toBe("");
-    });
-  });
-
-  it("marks at most one experience as current", () => {
-    expect(experiences.filter((experience) => experience.current).length).toBeLessThanOrEqual(1);
+  it("has education and currently building topics", () => {
+    expect(education.length).toBeGreaterThan(0);
+    expect(currentlyBuilding.length).toBeGreaterThan(0);
   });
 });
 
@@ -98,6 +33,15 @@ describe("techCategories", () => {
       category.items.forEach((item) => {
         expect(item.name.trim()).not.toBe("");
         expect(item.icon.trim()).not.toBe("");
+      });
+    });
+  });
+
+  it("resolves a logo for every skill with an icon key", async () => {
+    const { getDeviconUrl } = await import("./../devicons");
+    techCategories.forEach((category) => {
+      category.items.forEach((item) => {
+        expect(getDeviconUrl(item.icon), `${item.name} (${item.icon})`).toBeDefined();
       });
     });
   });

@@ -53,6 +53,10 @@ const ICON_ENTRIES: Record<string, IconEntry> = {
   prisma:           { url: `${DEVICON_BASE}/prisma/prisma-original.svg` },
   firebase:         { url: `${DEVICON_BASE}/firebase/firebase-original.svg` },
   supabase:         { url: `${DEVICON_BASE}/supabase/supabase-original.svg` },
+  kafka:            { url: `${DEVICON_BASE}/apachekafka/apachekafka-original.svg`, tone: "dark" },
+  apachekafka:      { url: `${DEVICON_BASE}/apachekafka/apachekafka-original.svg`, tone: "dark" },
+  bigquery:         { url: `${SIMPLE_ICONS_BASE}/googlebigquery.svg`, tone: "dark" },
+  googlebigquery:   { url: `${SIMPLE_ICONS_BASE}/googlebigquery.svg`, tone: "dark" },
 
   // Payments
   stripe:           { url: `${SIMPLE_ICONS_BASE}/stripe.svg`, tone: "dark" },
@@ -71,11 +75,17 @@ const ICON_ENTRIES: Record<string, IconEntry> = {
   aws:              { url: `${DEVICON_BASE}/amazonwebservices/amazonwebservices-original-wordmark.svg` },
   awsses:           { url: `${DEVICON_BASE}/amazonwebservices/amazonwebservices-original-wordmark.svg` },
   googlecloud:      { url: `${DEVICON_BASE}/googlecloud/googlecloud-original.svg` },
+  datadog:          { url: `${SIMPLE_ICONS_BASE}/datadog.svg`, tone: "dark" },
 
   // AI tools
-  claude:           { url: `${SIMPLE_ICONS_BASE}/anthropic.svg`, tone: "dark" },
-  claudecode:       { url: `${SIMPLE_ICONS_BASE}/anthropic.svg`, tone: "dark" },
+  claude:           { url: `${SIMPLE_ICONS_BASE}/claude.svg`, tone: "dark" },
+  claudecode:       { url: `${SIMPLE_ICONS_BASE}/claude.svg`, tone: "dark" },
+  claudeapi:        { url: `${SIMPLE_ICONS_BASE}/anthropic.svg`, tone: "dark" },
   anthropic:        { url: `${SIMPLE_ICONS_BASE}/anthropic.svg`, tone: "dark" },
+  githubcopilot:    { url: `${SIMPLE_ICONS_BASE}/githubcopilot.svg`, tone: "dark" },
+  cursor:           { url: `${SIMPLE_ICONS_BASE}/cursor.svg`, tone: "dark" },
+  mcp:              { url: `${SIMPLE_ICONS_BASE}/modelcontextprotocol.svg`, tone: "dark" },
+  modelcontextprotocol: { url: `${SIMPLE_ICONS_BASE}/modelcontextprotocol.svg`, tone: "dark" },
   gemini:           { url: `${SIMPLE_ICONS_BASE}/googlegemini.svg`, tone: "dark" },
   googlegemini:     { url: `${SIMPLE_ICONS_BASE}/googlegemini.svg`, tone: "dark" },
   perplexity:       { url: `${SIMPLE_ICONS_BASE}/perplexity.svg`, tone: "dark" },

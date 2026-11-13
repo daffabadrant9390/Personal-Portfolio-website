@@ -5,7 +5,6 @@ import { SearchX } from "lucide-react";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { ProjectCard } from "@/components/sections/projects/ProjectCard";
 import { ProjectFilters, type SortOrder } from "@/components/sections/projects/ProjectFilters";
-import { ProjectDetailsSheet } from "@/components/sections/projects/ProjectDetailsSheet";
 import type { Project } from "@/lib/types";
 
 interface ProjectsExplorerProps {
@@ -14,14 +13,13 @@ interface ProjectsExplorerProps {
 
 /**
  * Client island for the projects page: owns the search/category/sort state, the
- * filtered grid, and the details modal. The surrounding page (hero, headings)
+ * filtered grid. The surrounding page (hero, headings)
  * stays a Server Component — only this interactive slice ships as client JS.
  */
 export function ProjectsExplorer({ projects }: ProjectsExplorerProps) {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<SortOrder>("none");
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const categories = useMemo(
     () => Array.from(new Set(projects.map((p) => p.category))),
@@ -60,7 +58,7 @@ export function ProjectsExplorer({ projects }: ProjectsExplorerProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {visibleProjects.map((project, i) => (
             <AnimatedSection key={project.id} delay={0.04 * (i % 6)}>
-              <ProjectCard project={project} onViewDetails={setSelectedProject} />
+              <ProjectCard project={project} />
             </AnimatedSection>
           ))}
         </div>
@@ -76,8 +74,6 @@ export function ProjectsExplorer({ projects }: ProjectsExplorerProps) {
           </p>
         </div>
       )}
-
-      <ProjectDetailsSheet project={selectedProject} onClose={() => setSelectedProject(null)} />
     </>
   );
 }

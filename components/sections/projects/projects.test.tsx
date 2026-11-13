@@ -14,33 +14,7 @@ vi.mock("@/lib/hooks/useBreakpoint", () => ({
 }));
 
 vi.mock("@/components/sections/projects/ProjectCard", () => ({
-  ProjectCard: ({
-    project,
-    onViewDetails,
-  }: {
-    project: Project;
-    onViewDetails: (p: Project) => void;
-  }) => (
-    <button data-testid="card" onClick={() => onViewDetails(project)}>
-      {project.title}
-    </button>
-  ),
-}));
-
-vi.mock("@/components/sections/projects/ProjectDetailsSheet", () => ({
-  ProjectDetailsSheet: ({
-    project,
-    onClose,
-  }: {
-    project: Project | null;
-    onClose: () => void;
-  }) =>
-    project ? (
-      <div role="dialog">
-        <span>details:{project.title}</span>
-        <button onClick={onClose}>close-details</button>
-      </div>
-    ) : null,
+  ProjectCard: ({ project }: { project: Project }) => <div data-testid="card">{project.title}</div>,
 }));
 
 // Native <select> stand-in so the sort control can be exercised without the
@@ -274,16 +248,5 @@ describe("ProjectsExplorer", () => {
     });
     expect(screen.getByText("No projects found")).toBeInTheDocument();
     expect(screen.queryAllByTestId("card")).toHaveLength(0);
-  });
-
-  it("opens and closes the details sheet", async () => {
-    const user = userEvent.setup();
-    render(<ProjectsExplorer projects={projects} />);
-
-    await user.click(screen.getByText("Apple API", { selector: "[data-testid='card']" }));
-    expect(screen.getByText("details:Apple API")).toBeInTheDocument();
-
-    await user.click(screen.getByRole("button", { name: "close-details" }));
-    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 });

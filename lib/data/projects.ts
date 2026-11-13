@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 import { unstable_cache } from "next/cache";
 import { getDb } from "@/lib/db";
 import { CONTENT_CACHE_TAG, CONTENT_REVALIDATE_SECONDS } from "@/lib/data/cache";
@@ -40,4 +41,10 @@ async function loadProjects(): Promise<Project[]> {
 export const getProjects = unstable_cache(loadProjects, ["projects"], {
   revalidate: CONTENT_REVALIDATE_SECONDS,
   tags: [CONTENT_CACHE_TAG],
+});
+
+/** One project by its slug (the `id` the components use). Deduped within a single request. */
+export const getProjectBySlug = cache(async (slug: string): Promise<Project | undefined> => {
+  const projects = await getProjects();
+  return projects.find((project) => project.id === slug);
 });

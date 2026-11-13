@@ -3,19 +3,17 @@ import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Container } from "@/components/shared/Container";
 import { ProjectsExplorer } from "@/components/sections/projects/ProjectsExplorer";
 import { getProjects } from "@/lib/data/projects";
+import { JsonLd } from "@/components/shared/JsonLd";
+import { breadcrumbJsonLd, pageJsonLd, pageMetadata, projectsItemListJsonLd } from "@/lib/seo";
 
-export const metadata: Metadata = {
+const DESCRIPTION =
+  "A selection of shipped projects spanning distributed systems, high-performance APIs, and full stack applications.";
+
+export const metadata: Metadata = pageMetadata({
   title: "Projects",
-  description:
-    "A selection of shipped projects spanning distributed systems, high-performance APIs, and full stack applications.",
-  alternates: { canonical: "/projects" },
-  openGraph: {
-    title: "Projects | M. Daffa Badranthoriq",
-    description:
-      "A selection of shipped projects spanning distributed systems, high-performance APIs, and full stack applications.",
-    url: "/projects",
-  },
-};
+  description: DESCRIPTION,
+  path: "/projects",
+});
 
 // Content comes from MySQL, so render per request instead of at build time
 // (CI and image builds have no database).
@@ -24,7 +22,11 @@ export default async function ProjectsPage() {
   const projects = await getProjects();
 
   return (
-    <main className="min-h-screen bg-background">
+    // The layout already provides the page's <main>.
+    <div className="min-h-screen bg-background">
+      <JsonLd data={pageJsonLd("CollectionPage", { name: "Projects", description: DESCRIPTION, path: "/projects" })} />
+      <JsonLd data={breadcrumbJsonLd([{ name: "Projects", path: "/projects" }])} />
+      <JsonLd data={projectsItemListJsonLd(projects)} />
 
       {/* ── Hero ─────────────────────────────────────────── */}
       <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 bg-background overflow-hidden">
@@ -50,6 +52,6 @@ export default async function ProjectsPage() {
         </Container>
       </section>
 
-    </main>
+    </div>
   );
 }

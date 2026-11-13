@@ -9,21 +9,18 @@ import { SoftSkills } from "@/components/sections/skills/SoftSkills";
 import { ContactCTASection } from "@/components/sections/landing/ContactCTASection";
 import { education, profileFacts } from "@/lib/data/portfolio";
 import { getExperiences } from "@/lib/data/experience";
+import { JsonLd } from "@/components/shared/JsonLd";
+import { breadcrumbJsonLd, pageJsonLd, pageMetadata } from "@/lib/seo";
 import type { Experience } from "@/lib/types";
 
 const DESCRIPTION =
   "Full Stack Software Engineer in Jakarta with 4.5+ years across fintech, travel and AI. Full time experience at Kredivo Group and tiket.com, plus contract, part time and community work.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About",
   description: DESCRIPTION,
-  alternates: { canonical: "/about" },
-  openGraph: {
-    title: "About | M. Daffa Badranthoriq",
-    description: DESCRIPTION,
-    url: "/about",
-  },
-};
+  path: "/about",
+});
 
 // Content comes from MySQL, so render per request instead of at build time
 // (CI and image builds have no database).
@@ -72,6 +69,8 @@ export default async function AboutPage() {
 
   return (
     <>
+      <JsonLd data={pageJsonLd("ProfilePage", { name: "About M. Daffa Badranthoriq", description: DESCRIPTION, path: "/about" })} />
+      <JsonLd data={breadcrumbJsonLd([{ name: "About", path: "/about" }])} />
       <AboutHero />
 
       <AboutGallery />

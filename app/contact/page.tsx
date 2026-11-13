@@ -117,7 +117,7 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
 
       {/* ── Hero Banner ─────────────────────────────────── */}
       <section className="relative pt-32 pb-8 md:pt-40 md:pb-12 bg-background overflow-hidden">
@@ -386,6 +386,6 @@ export default function ContactPage() {
         onClose={() => setShowErrors(false)}
       />
 
-    </main>
+    </div>
   );
 }

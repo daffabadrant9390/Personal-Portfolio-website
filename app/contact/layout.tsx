@@ -1,22 +1,26 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/shared/JsonLd";
+import { breadcrumbJsonLd, pageJsonLd, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+const DESCRIPTION =
+  "Get in touch to discuss a project, a role, or anything full stack engineering related.";
+
+export const metadata: Metadata = pageMetadata({
   title: "Contact",
-  description:
-    "Get in touch to discuss a project, a role, or anything full stack engineering related.",
-  alternates: { canonical: "/contact" },
-  openGraph: {
-    title: "Contact | M. Daffa Badranthoriq",
-    description:
-      "Get in touch to discuss a project, a role, or anything full stack engineering related.",
-    url: "/contact",
-  },
-};
+  description: DESCRIPTION,
+  path: "/contact",
+});
 
 export default function ContactLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <JsonLd data={pageJsonLd("ContactPage", { name: "Contact M. Daffa Badranthoriq", description: DESCRIPTION, path: "/contact" })} />
+      <JsonLd data={breadcrumbJsonLd([{ name: "Contact", path: "/contact" }])} />
+      {children}
+    </>
+  );
 }

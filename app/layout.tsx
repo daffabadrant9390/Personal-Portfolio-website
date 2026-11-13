@@ -5,6 +5,17 @@ import { ThemeProvider } from "@/components/shared/ThemeProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { MobileMenu } from "@/components/layout/MobileMenu";
+import { JsonLd } from "@/components/shared/JsonLd";
+import {
+  OG_IMAGE,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_TITLE,
+  getSiteUrl,
+  isIndexable,
+  personJsonLd,
+  websiteJsonLd,
+} from "@/lib/seo";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,18 +36,16 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-const SITE_URL = "https://daffabadranthoriq.com";
-const SITE_TITLE = "M. Daffa Badranthoriq | Full Stack Software Engineer";
-const SITE_DESCRIPTION =
-  "Full Stack Software Engineer in Jakarta building with Next.js, TypeScript and Golang, plus AI and LLM applications. 4.5+ years across fintech, travel and AI.";
+const SITE_URL = getSiteUrl();
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: SITE_TITLE,
-    template: "%s | M. Daffa Badranthoriq",
+    template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
   keywords: [
     "Full Stack Software Engineer",
     "Software Engineer Jakarta",
@@ -47,35 +56,41 @@ export const metadata: Metadata = {
     "React",
     "Node.js",
   ],
-  authors: [{ name: "M. Daffa Badranthoriq", url: SITE_URL }],
-  creator: "M. Daffa Badranthoriq",
-  alternates: {
-    canonical: "/",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-    },
-  },
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  // Only the production host is indexed. Staging and previews are noindex.
+  robots: isIndexable(SITE_URL)
+    ? {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+          "max-video-preview": -1,
+        },
+      }
+    : { index: false, follow: false },
   openGraph: {
     type: "website",
     url: SITE_URL,
-    siteName: SITE_TITLE,
+    siteName: SITE_NAME,
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     locale: "en_US",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: SITE_TITLE }],
+    images: [OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: ["/opengraph-image"],
+    images: [OG_IMAGE.url],
   },
+  // Search Console verification, only when the variable is set.
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }
+    : {}),
   icons: {
     // Same artwork as the dark mode navbar logo. app/favicon.ico is picked up
     // automatically by Next, these cover the PNG sizes.
@@ -85,26 +100,6 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
-};
-
-const personJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "M. Daffa Badranthoriq",
-  url: SITE_URL,
-  jobTitle: "Full Stack Software Engineer",
-  worksFor: { "@type": "Organization", name: "Kredivo Group" },
-  description: SITE_DESCRIPTION,
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Jakarta",
-    addressCountry: "ID",
-  },
-  sameAs: [
-    "https://github.com/daffabadrant9390",
-    "https://www.linkedin.com/in/m-daffa-badran-thoriq/",
-    "https://www.instagram.com/daffabadrant/",
-  ],
 };
 
 export default function RootLayout({
@@ -118,11 +113,8 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen flex flex-col" suppressHydrationWarning>
-        <script
-          type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-        />
+        <JsonLd data={personJsonLd(SITE_URL)} />
+        <JsonLd data={websiteJsonLd(SITE_URL)} />
         <ThemeProvider>
           <Navbar />
           <MobileMenu />

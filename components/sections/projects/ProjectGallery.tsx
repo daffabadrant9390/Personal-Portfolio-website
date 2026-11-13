@@ -41,7 +41,7 @@ export function ProjectGallery({ images, heightClass = "h-44" }: ProjectGalleryP
       </AnimatePresence>
 
       {current.caption && (
-        <div className={`absolute bottom-0 inset-x-0 z-10 bg-gradient-to-t from-black/70 to-transparent
+        <div className={`pointer-events-none absolute bottom-0 inset-x-0 z-10 bg-gradient-to-t from-black/70 to-transparent
                        px-3 pt-6 text-[11px] font-medium text-white/90 ${hasMultiple ? "pb-5" : "pb-2"}`}>
           {current.caption}
         </div>

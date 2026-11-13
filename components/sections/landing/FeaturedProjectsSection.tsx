@@ -4,6 +4,7 @@ import { GithubIcon } from "@/components/shared/BrandIcons";
 import { AnimatedSection } from "@/components/shared/AnimatedSection";
 import { Container } from "@/components/shared/Container";
 import { getProjects } from "@/lib/data/projects";
+import { projectPath } from "@/lib/seo";
 import type { Project } from "@/lib/types";
 import { ShimmerImage } from "@/components/shared/ShimmerImage";
 
@@ -26,7 +27,7 @@ function ProjectCard({ project }: { project: Project }) {
         <div className="absolute inset-0 bg-linear-to-t from-card via-card/40 to-transparent" />
         {/* Link overlay */}
         <div
-          className="absolute inset-0 flex items-center justify-center gap-3
+          className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center gap-3
                      opacity-0 group-hover:opacity-100 focus-within:opacity-100
                      transition-opacity duration-300 bg-black/40 backdrop-blur-sm"
         >
@@ -38,7 +39,7 @@ function ProjectCard({ project }: { project: Project }) {
               rel="noopener noreferrer"
               aria-label={`${link.label} GitHub repository for ${project.title}`}
               title={`Open GitHub (${link.label})`}
-              className={`flex h-8 items-center gap-1 rounded-lg bg-white/15 hover:bg-white/25
+              className={`pointer-events-auto flex h-8 items-center gap-1 rounded-lg bg-white/15 hover:bg-white/25
                          text-white transition-colors
                          ${links.length > 1 ? "px-2 text-[11px] font-medium" : "w-8 justify-center"}`}
             >
@@ -52,7 +53,7 @@ function ProjectCard({ project }: { project: Project }) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Live demo for ${project.title}`}
-              className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-opacity hover:opacity-90"
+              className="pointer-events-auto flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-opacity hover:opacity-90"
             >
               <ExternalLink size={14} />
             </a>
@@ -63,7 +64,13 @@ function ProjectCard({ project }: { project: Project }) {
       {/* Content */}
       <div className="p-4">
         <h3 className="font-heading text-xs sm:text-sm font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
-          {project.title}
+          {/* Stretched over the whole card; the GitHub and live links above sit on top (z-10). */}
+          <Link
+            href={projectPath(project.id)}
+            className="outline-none after:absolute after:inset-0 after:z-[5] after:content-['']"
+          >
+            {project.title}
+          </Link>
         </h3>
         <p className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed mb-3 line-clamp-2">
           {project.description}

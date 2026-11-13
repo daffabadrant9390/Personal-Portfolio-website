@@ -6,7 +6,7 @@ vi.mock("server-only", () => ({}));
 vi.mock("next/cache", () => ({ unstable_cache: <T extends (...a: never[]) => unknown>(fn: T) => fn }));
 vi.mock("@/lib/db", () => ({ getDb: () => ({ project: { findMany } }) }));
 
-import { getProjects } from "./projects";
+import { getProjectBySlug, getProjects } from "./projects";
 
 const row = {
   slug: "tiket",
@@ -23,7 +23,9 @@ const row = {
 };
 
 describe("getProjects", () => {
-  beforeEach(() => findMany.mockReset());
+  beforeEach(() => {
+    findMany.mockReset();
+  });
 
   it("asks the database for ordered rows with their children", async () => {
     findMany.mockResolvedValue([]);
@@ -63,5 +65,22 @@ describe("getProjects", () => {
     expect(project).not.toHaveProperty("liveUrl");
     expect(project.image).toBe("");
     expect(project.githubUrl).toEqual([]);
+  });
+});
+
+describe("getProjectBySlug", () => {
+  beforeEach(() => {
+    findMany.mockReset();
+  });
+
+  it("finds a project by its slug", async () => {
+    findMany.mockResolvedValue([row, { ...row, slug: "prism", title: "Prism" }]);
+    const project = await getProjectBySlug("prism");
+    expect(project?.title).toBe("Prism");
+  });
+
+  it("returns nothing for an unknown slug", async () => {
+    findMany.mockResolvedValue([row]);
+    expect(await getProjectBySlug("does-not-exist")).toBeUndefined();
   });
 });

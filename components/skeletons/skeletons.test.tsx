@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { AboutSkeleton } from "@/components/skeletons/AboutSkeleton";
 import { HomeSkeleton } from "@/components/skeletons/HomeSkeleton";
+import { ProjectDetailSkeleton } from "@/components/skeletons/ProjectDetailSkeleton";
 import { ProjectsSkeleton } from "@/components/skeletons/ProjectsSkeleton";
 import { techCategories } from "@/lib/data/portfolio";
 
@@ -10,6 +11,7 @@ describe("loading skeletons", () => {
     ["home", <HomeSkeleton key="h" />, "Loading home page"],
     ["about", <AboutSkeleton key="a" />, "Loading about page"],
     ["projects", <ProjectsSkeleton key="p" />, "Loading projects"],
+    ["project detail", <ProjectDetailSkeleton key="d" />, "Loading project"],
   ])("%s skeleton is one labelled busy region with no real copy", (_name, ui, label) => {
     const { container } = render(ui);
     const region = screen.getByRole("status");

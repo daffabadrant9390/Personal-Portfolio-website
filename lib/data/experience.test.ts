@@ -28,7 +28,9 @@ const base = {
 };
 
 describe("getExperiences", () => {
-  beforeEach(() => findMany.mockReset());
+  beforeEach(() => {
+    findMany.mockReset();
+  });
 
   it("sorts by start date, newest first", async () => {
     findMany.mockResolvedValue([]);
